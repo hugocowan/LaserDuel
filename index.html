@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LaserDuel</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/app.js"></script>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="cover one"></div>
+  <div class="cover two"></div>
+  <aside class="scoreboard one">
+    <h1>Player1</h1>
+    <ul>
+      <li>Health: <span class="player1 health">3</span></li>
+      <li>Lives: <span class="player1 lives">3</span></li>
+    </ul>
+  </aside>
+  <aside class="scoreboard two">
+    <h1>Player2</h1>
+    <ul>
+      <li>Health: <span class="player2 health">3</span></li>
+      <li>Lives: <span class="player2 lives">3</span></li>
+    </ul>
+  </aside>
+  <div class="controls player1">
+    Left -> <code>A</code> <span class="line1"></span> Right -> <code>D</code>
+    <br> Jump -> <code>W</code> <span class="line2"></span> Shoot -> <code>TAB</code> / <code>E</code>
+  </div>
+  <div class="controls player2">
+    Left -> <code>◀</code>  <span></span> Right -> <code>▶</code>
+    <br> Jump -> <code>▲</code> <span></span> Shoot -> <code>⌫</code>/<code>⇧</code>
+  </div>
+  <div class='border'>
+<header></header>
+    <main>
+      <!-- <div class="ball laserSpeed"></div> -->
+      <div class="platforms">
+        <div class="level-one">
+          <div class="platform one"></div>
+          <div class="platform two"></div>
+          <div class="platform three"></div>
+        </div>
+        <div class="level-two">
+          <div class="platform four"></div>
+          <div class="platform five"></div>
+        </div>
+        <div class="level-three">
+          <div class="platform six"></div>
+          <div class="platform seven"></div>
+          <div class="platform eight"></div>
+          <div class="platform nine"></div>
+          <div class="platform ten"></div>
+          <div class="platform eleven"></div>
+        </div>
+      </div>
+      <aside class="player one">
+        <div class="visor one"></div>
+        <div class="gun one"></div>
+      </aside>
+      <aside class="player two">
+        <div class="visor two"></div>
+        <div class="gun two"></div>
+      </aside>
+    </main>
+  </div>
+    <footer></footer>
+</body>
+</html>
