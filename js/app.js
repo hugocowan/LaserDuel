@@ -8,8 +8,6 @@ function setup(){
   // const ballLeft = $ball.offset().left;
   // const ballRight = $ball.offset().left+$ball.width();
   // const ballBottom = $ball.offset().top+$ball.height();
-  const $painAudio = new Audio('./audio/hurt.wav');
-  const $laserAudio = new Audio('./audio/laser.mp3');
   const $player1Health = $('.player1.health');
   const $player1Lives = $('.player1.lives');
   const $player2Health = $('.player2.health');
@@ -58,6 +56,7 @@ function setup(){
     const audioTag = document.createElement('audio');
     audioTag.setAttribute('src', `./audio/${name}.${ext}`);
     audioTag.play();
+    audioTag.remove();
   }
 
   // X/Y movement functions.
@@ -244,10 +243,10 @@ function setup(){
     keypress[event.which] = true;
     if((event.which === 9 || event.which === 69) && player1Object.noLasers){
       console.log('Pew!');
-      $laserAudio.play();
+      playSoundEffect('laser', 'mp3');
       return pewPew($player1, $player2, playerOffset(player1Object), player1Object.playerDirection, player1Object, player2Object, player1Object.laserSpeed);
     }else if((event.which === 8 || event.which === 16) && player2Object.noLasers){
-      $laserAudio.play();
+      playSoundEffect('laser', 'mp3');
       return pewPew($player2, $player1, playerOffset(player2Object), player2Object.playerDirection, player2Object, player1Object, player2Object.laserSpeed);
     }
   });
