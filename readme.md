@@ -5,6 +5,8 @@ To create a basic platformer for two players in a single week.
 
 As my first project, this was a test of my own ability as well as the first game I have ever made.
 
+###Link: https://hugocowan.github.io/LaserDuel/
+
 -
 
 ###Game Instructions:
