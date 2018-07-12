@@ -48,7 +48,8 @@ function setup(){
     health: 3,
     lives: 3,
     laserSpeed: 500,
-    playerSpeed: 2
+    playerSpeed: 2,
+    ducking: false
   };
 
 
@@ -132,9 +133,14 @@ function setup(){
   }
 
   function newPositionY(oldPosition, keyCode, player, object) {
-    var newPositionY = parseFloat(oldPosition, 10) - ((keypress[keyCode] && !object.airborne) ? characterJump(player, object): 0) + (object.gravity ? object.playerSpeed*1.25 : 0);
+    var newPositionY = parseFloat(oldPosition, 10) - ((keypress[keyCode] && !object.airborne && !object.jumping) ? characterJump(player, object): 0) + (object.gravity ? object.playerSpeed*1.25 : 0);
 
+    // if(object.ducking && newPositionY >= playableHeight+30){
+    //   console.log('he is crouching and on the ground');
+    //   return playableHeight + 30;
+    // } else
     if (newPositionY >= playableHeight) {
+      console.log('he is on the ground.');
       return playableHeight;
     } else {
       return newPositionY;
@@ -238,6 +244,8 @@ function setup(){
 
   //Keydown events
 
+  // for ducking.
+
   $(window).keydown(function(event){
     event.preventDefault();
     keypress[event.which] = true;
@@ -248,10 +256,28 @@ function setup(){
     }else if((event.which === 8 || event.which === 16) && player2Object.noLasers){
       playSoundEffect('laser', 'mp3');
       return pewPew($player2, $player1, playerOffset(player2Object), player2Object.playerDirection, player2Object, player1Object, player2Object.laserSpeed);
+    }else if(event.which === 40){
+      player2Object.ducking = true;
+      player2Object.jumping = true;
+      player2Object.playerSpeed = 1;
+      console.log('crouching');
+      $player2.css({
+        height: '-=30px'
+        // top: '+=30px'
+      });
     }
   });
   $(window).keyup(function(event){
     keypress[event.which] = false;
+    if(event.which === 40){
+      player2Object.ducking = false;
+      player2Object.jumping = false;
+      player2Object.playerSpeed = 2;
+      $player2.css({
+        height: '60px',
+        top: '-=30px'
+      });
+    }
   });
 
 
