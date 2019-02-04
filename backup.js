@@ -6,10 +6,10 @@ $(window).keydown(function(event){
 $(window).keydown(function(event){
   if(event.which === 69 && player1Object.noLasers){
     player1Object.noLasers = false;
-    return pewPew($player1, $player2, playerOffset(player1Object), player1Object.playerDirection, player1Object, player2Object, $player1Health, $player1Lives);
+    return pewPew($player1, $player2, playerOffset(player1Object), player1Object.direction, player1Object, player2Object, $player1Health, $player1Lives);
   }else if(event.which === 13 && player2Object.noLasers){
     player2Object.noLasers = false;
-    pewPew($player2, $player1, playerOffset(player2Object), player2Object.playerDirection, player2Object, player1Object, $player2Health, $player2Lives);
+    pewPew($player2, $player1, playerOffset(player2Object), player2Object.direction, player2Object, player1Object, $player2Health, $player2Lives);
   }
 });
 $(window).keyup(function(event){
@@ -20,7 +20,7 @@ $(window).keyup(function(event){
 //Laser functions.
 
 function playerOffset(object){
-  if(object.playerDirection === 'right'){
+  if(object.direction === 'right'){
     return 30;
   }else{
     return -42;

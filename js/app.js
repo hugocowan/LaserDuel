@@ -1,7 +1,8 @@
-function setup() {
+$(function setup() {
 
 
     //Global variables.
+
     // const $ball = $('.ball');
     // const ballTop = $ball.offset().top;
     // const ballLeft = $ball.offset().left;
@@ -22,28 +23,23 @@ function setup() {
     const playableHeight = $arena.height() - $player1.height(); //=400
     const keypress = {};
     const platforms = $('.platform');
-    let arrayTop = [];
-    let arrayLeft = [];
-    const keyArray = [65, 68, 87, 37, 39, 38, 9, 69, 8, 16];
-    const player1Object = {
+    const keyArray = ['a', 'd', 'w', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Tab', 'e', 'Backspace', 'Shift'];
+
+    const player1Properties = {
         name: 'Player1',
-        gravity: true,
         airborne: false,
-        jumping: false,
         noLasers: true,
-        playerDirection: 'right',
+        direction: 'right',
         health: 3,
         lives: 3,
         laserSpeed: 500,
         playerSpeed: 2
     };
-    const player2Object = {
+    const player2Properties = {
         name: 'Player2',
-        gravity: true,
         airborne: false,
-        jumping: false,
         noLasers: true,
-        playerDirection: 'left',
+        direction: 'left',
         health: 3,
         lives: 3,
         laserSpeed: 500,
@@ -52,18 +48,64 @@ function setup() {
     };
 
 
+    // Play the pew pew and pain sound effects
+    // Disabled to avoid annoying sounds during dev
     function playSoundEffect(name, ext) {
-        const audioTag = document.createElement('audio');
-        audioTag.setAttribute('src', `./audio/${name}.${ext}`);
-        audioTag.play();
-        audioTag.remove();
+        // const audioTag = document.createElement('audio');
+        // audioTag.setAttribute('src', `./audio/${name}.${ext}`);
+        // audioTag.play();
+        // audioTag.remove();
     }
 
-    // X/Y movement functions.
 
-    function direction(keyCode1, keyCode2, object) {
+    //Movement collision function.
 
-        function direction(direction, playerObject, $player, $visor, $gun) {
+    function collisionPlayer(player, playerProperties, opponentProperties) {
+
+        const playerTop = player.offset().top,
+            playerLeft = player.offset().left,
+            playerRight = player.offset().left + player.width(),
+            playerBottom = playerTop + player.height(),
+            platformsTop = [],
+            platformsLeft = [];
+
+        $.each(platforms, function () {
+
+            // Use $(this) to get the jQuery object instead of the html document. This gets calculated every time in case the window gets resized.
+            platformsTop.push($(this).offset().top);
+            platformsLeft.push($(this).offset().left);
+        });
+
+        for (let i = 0; i < platforms.length; i++) {
+
+            if (playerLeft < platformsLeft[i] + platforms.width() &&
+                playerRight > platformsLeft[i] &&
+                playerTop < platformsTop[i] + platforms.height() &&
+                playerBottom === platformsTop[i]) {
+
+                playerProperties.airborne = false;
+
+                break;
+            }
+
+            // makes airborne false if player is at ground level (560px).
+            playerProperties.airborne = playerBottom !== 560;
+        }
+        // if(playerLeft < ballRight && playerRight > ballLeft &&
+        //   playerTop < ballBottom && playerBottom > ballTop){
+        //
+        //   console.log('It Happened!!');
+        //   $ball.remove();
+        //   opponent.playerSpeed = 1;
+        // }
+    }
+
+
+    // Change player1/2's CSS based on their direction.
+
+    function playerDirection(keyCode1, keyCode2, object) {
+
+        function css(direction, playerProperties, $player, $visor, $gun) {
 
             let playerCSS = { borderRadius: '15px 2px 0 0' },
                 visorCSS = { left: '0px', borderRadius: '10px 2px 0 0' },
@@ -75,31 +117,33 @@ function setup() {
                 gunCSS = { left: '20px' };
             }
 
-            player1Object.playerDirection = direction;
+            playerProperties.direction = direction;
             $player.css(playerCSS);
             $visor.css(visorCSS);
             $gun.css(gunCSS);
         }
 
-        //Change player1/2's CSS based on their direction.
-        if (keypress[keyCode1] && keyCode1 === 65) {
-            direction('left', player1Object, $player1, $player1Visor, $player1Gun);
-        } else if (keypress[keyCode2] && keyCode2 === 68) {
-            direction('right', player1Object, $player1, $player1Visor, $player1Gun);
-        } else if (keypress[keyCode1] && keyCode1 === 37) {
-            direction('left', player2Object, $player2, $player2Visor, $player2Gun);
-        } else if (keypress[keyCode2] && keyCode2 === 39) {
-            direction('right', player2Object, $player2, $player2Visor, $player2Gun);
+        if (keypress[keyCode1] && keyCode1 === 'a') {
+            css('left', player1Properties, $player1, $player1Visor, $player1Gun);
+        } else if (keypress[keyCode2] && keyCode2 === 'd') {
+            css('right', player1Properties, $player1, $player1Visor, $player1Gun);
+        } else if (keypress[keyCode1] && keyCode1 === 'ArrowLeft') {
+            css('left', player2Properties, $player2, $player2Visor, $player2Gun);
+        } else if (keypress[keyCode2] && keyCode2 === 'ArrowRight') {
+            css('right', player2Properties, $player2, $player2Visor, $player2Gun);
         }
 
         return object.playerSpeed;
     }
 
+    // Moves player left/right
     function newPositionX(oldPosition, keyCode1, keyCode2, object) {
 
-        var newPositionX = parseFloat(oldPosition) - (keypress[keyCode1] ? direction(keyCode1, keyCode2, object) : 0) + (keypress[keyCode2] ? direction(keyCode1, keyCode2, object) : 0);
+        const newPositionX = parseFloat(oldPosition) -
+            (keypress[keyCode1] ? playerDirection(keyCode1, keyCode2, object) : 0) +
+            (keypress[keyCode2] ? playerDirection(keyCode1, keyCode2, object) : 0);
 
-        if (newPositionX < 0) {
+        if (newPositionX <= 0) {
             return 0;
         } else if (newPositionX >= playableWidth) {
             return playableWidth;
@@ -108,8 +152,9 @@ function setup() {
         }
     }
 
+    // Just does gravity
     function newPositionY(oldPosition, keyCode, player, object) {
-        var newPositionY = parseFloat(oldPosition) - ((keypress[keyCode] && !object.airborne && !object.jumping) ? characterJump(player, object) : 0) + (object.gravity ? object.playerSpeed * 1.25 : 0);
+        const newPositionY = parseFloat(oldPosition) + (object.airborne ? object.playerSpeed * 1.25 : 0);
 
         // if(object.ducking && newPositionY >= playableHeight+30){
         //   console.log('he is crouching and on the ground');
@@ -124,133 +169,93 @@ function setup() {
     }
 
 
-    //Jumping function.
-
-    function characterJump(player, object) {
-        if (!object.jumping) {
-            object.jumping = true;
-            player.animate({
-                'top': '-=110px'
-            });
-        }
-
-        function stopDoubleJump() {
-            setTimeout(function () {
-                object.jumping = false;
-            }, 400);
-        }
-
-        stopDoubleJump();
-    }
-
-
-    //Movement collision function.
-
-    function collisionPlayer(player, object, opponent) {
-        const playerTop = player.offset().top;
-        const playerLeft = player.offset().left;
-        const playerRight = player.offset().left + player.width();
-        const playerBottom = playerTop + player.height();
-        $.each(platforms, function (i, platform) {
-            platform = $(this);
-            if (arrayTop.length > 10 || arrayLeft.length > 10) {
-                arrayTop = [];
-                arrayLeft = [];
-            }
-            arrayTop.push(platform.offset().top);
-            arrayLeft.push(platform.offset().left);
-            // console.log(arrayTop, arrayLeft);
-        });
-        // console.log('player1:',opponent.playerSpeed, 'player2:',object.playerSpeed);
-
-        for (var i = 0; i < platforms.length; i++) {
-
-            if (playerLeft < arrayLeft[i] + platforms.width() &&
-                playerRight > arrayLeft[i] &&
-                playerTop < arrayTop[i] + platforms.height() &&
-                playerBottom === arrayTop[i]) {
-                // console.log('player on platform, gravity', object.gravity,'airborne', object.airborne);
-                object.gravity = false;
-                object.airborne = false;
-                break;
-            } else {
-                // console.log('player bottom', playerBottom);
-                object.gravity = true;
-            }
-            if (playerBottom === 560) {
-                object.airborne = false;
-            } else {
-                object.airborne = true;
-            }
-        }
-        // if(playerLeft < ballRight && playerRight > ballLeft &&
-        //   playerTop < ballBottom && playerBottom > ballTop){
-        //
-        //   console.log('It Happened!!');
-        //   $ball.remove();
-        //   opponent.playerSpeed = 1;
-        // }
-    }
-
-
-    //Intervals.
+    //Movement Interval.
 
     setInterval(function () {
 
-        collisionPlayer($player1, player1Object, player2Object);
-        collisionPlayer($player2, player2Object, player1Object);
+        collisionPlayer($player1, player1Properties, player2Properties);
+        collisionPlayer($player2, player2Properties, player1Properties);
 
         $player1.css({
             left: function (index, oldPosition) {
-                // console.log(index, oldPosition);
-                return newPositionX(oldPosition, 65, 68, player2Object); //65=a, 68=d.
+                return newPositionX(oldPosition, 'a', 'd', player2Properties); //a=a, d=d
             },
             top: function (index, oldPosition) {
-                // console.log(index, oldPosition);
-                return newPositionY(oldPosition, 87, $player1, player1Object); //38 up, 40 down.
+                return newPositionY(oldPosition, 'w', $player1, player1Properties); //w=w, 83=s
             }
         });
         $player2.css({
             left: function (index, oldPosition) {
-                return newPositionX(oldPosition, 37, 39, player1Object); //37=left, 39=right.
+                return newPositionX(oldPosition, 'ArrowLeft', 'ArrowRight', player1Properties); //ArrowLeft=left, ArrowRight=right
             },
             top: function (index, oldPosition) {
-                return newPositionY(oldPosition, 38, $player2, player2Object);
+                return newPositionY(oldPosition, 'ArrowUp', $player2, player2Properties, false); //ArrowUp=up, 40=down
             }
         });
     }, 15);
 
+
+    //Jumping function.
+
+    function characterJump(player, object) {
+
+        object.airborne = true;
+        player.animate({
+            'top': '-=110px'
+        });
+    }
+
+
     //Keydown events
 
-    // for ducking.
-
-    $(window).keydown(function (event) {
+    window.addEventListener('keydown', function (event) {
         event.preventDefault();
-        keypress[event.which] = true;
-        if ((event.which === 9 || event.which === 69) && player1Object.noLasers) {
-            console.log('Pew!');
-            playSoundEffect('laser', 'mp3');
-            return pewPew($player1, $player2, playerOffset(player1Object), player1Object.playerDirection, player1Object, player2Object, player1Object.laserSpeed);
-        } else if ((event.which === 8 || event.which === 16) && player2Object.noLasers) {
-            playSoundEffect('laser', 'mp3');
-            return pewPew($player2, $player1, playerOffset(player2Object), player2Object.playerDirection, player2Object, player1Object, player2Object.laserSpeed);
-        } else if (event.which === 40) {
-            player2Object.ducking = true;
-            player2Object.jumping = true;
-            player2Object.playerSpeed = 1;
-            console.log('crouching');
-            $player2.css({
-                height: '-=30px'
-                // top: '+=30px'
-            });
+        keypress[event.key] = true;
+
+        switch(event.key) {
+
+            //player 1 shooting. noLasers gives the delay between shots.
+            case 'Tab'://           9=tab
+            case 'e'://             69=e
+
+                playSoundEffect('laser', 'mp3');
+                pewPew($player1, $player2, playerOffset(player1Properties), player1Properties.direction, player1Properties, player2Properties, player1Properties.laserSpeed);
+                break;
+
+            //player2 shooting.
+            case 'Backspace'://     8=backspace
+            case 'Shift'://         16=shift
+
+                playSoundEffect('laser', 'mp3');
+                pewPew($player2, $player1, playerOffset(player2Properties), player2Properties.direction, player2Properties, player1Properties, player2Properties.laserSpeed);
+                break;
+
+            //player2 crouching.
+            case 'ArrowDown'://     40=down
+
+                player2Properties.ducking = true;
+                player2Properties.playerSpeed = 1;
+                $player2.css({
+                    height: '-=30px'
+                    // top: '+=30px'
+                });
+                break;
+
+            case 'ArrowUp':
+                !player2Properties.airborne ? characterJump($player2, player2Properties) : null;
+                break;
+
+            case 'w':
+                !player1Properties.airborne ? characterJump($player1, player1Properties) : null;
+                break;
         }
     });
-    $(window).keyup(function (event) {
-        keypress[event.which] = false;
-        if (event.which === 40) {
-            player2Object.ducking = false;
-            player2Object.jumping = false;
-            player2Object.playerSpeed = 2;
+
+    window.addEventListener('keyup', function (event) {
+        keypress[event.key] = false;
+        if (event.key === '40') {
+            player2Properties.ducking = false;
+            player2Properties.playerSpeed = 2;
             $player2.css({
                 height: '60px',
                 top: '-=30px'
@@ -262,7 +267,7 @@ function setup() {
     //Laser function
 
     function playerOffset(object) {
-        if (object.playerDirection === 'right') {
+        if (object.direction === 'right') {
             return 30;
         } else {
             return -42;
@@ -335,18 +340,18 @@ function setup() {
                 $laser.stop().remove();
                 if (opponentObject.health > 1) {
                     opponentObject.health--;
-                    $player1Health.text(player1Object.health);
-                    $player2Health.text(player2Object.health);
+                    $player1Health.text(player1Properties.health);
+                    $player2Health.text(player2Properties.health);
                 } else {
                     opponentObject.lives--;
                     opponentObject.health = 3;
-                    if ($opponent === $player1 && player1Object.lives > 0) {
+                    if ($opponent === $player1 && player1Properties.lives > 0) {
                         $player1Health.text(3);
-                    } else if (player2Object.lives > 0) {
+                    } else if (player2Properties.lives > 0) {
                         $player2Health.text(3);
                     }
-                    $player1Lives.text(player1Object.lives);
-                    $player2Lives.text(player2Object.lives);
+                    $player1Lives.text(player1Properties.lives);
+                    $player2Lives.text(player2Properties.lives);
                     setTimeout(function () {
                         reset(object);
                     }, 20);
@@ -373,46 +378,42 @@ function setup() {
         });
 
 
-        if (object.name === 'Player1' && (player2Object.lives === 0)) {
+        if (object.name === 'Player1' && (player2Properties.lives === 0)) {
             $player1Health.text(0);
             alert('Player1 Wins the game!!! WOOOOOO');
             $player1Lives.text(3);
             $player1Health.text(3);
             $player2Lives.text(3);
             $player2Health.text(3);
-            player1Object.lives = 3;
-            player1Object.health = 3;
-            player2Object.lives = 3;
-            player2Object.health = 3;
-        } else if (object.name === 'Player2' && (player1Object.lives === 0)) {
+            player1Properties.lives = 3;
+            player1Properties.health = 3;
+            player2Properties.lives = 3;
+            player2Properties.health = 3;
+        } else if (object.name === 'Player2' && (player1Properties.lives === 0)) {
             $player2Health.text(0);
             alert('Player2 Wins the game!!! WOOOOOO');
             $player1Lives.text(3);
             $player1Health.text(3);
             $player2Lives.text(3);
             $player2Health.text(3);
-            player1Object.lives = 3;
-            player1Object.health = 3;
-            player2Object.lives = 3;
-            player2Object.health = 3;
+            player1Properties.lives = 3;
+            player1Properties.health = 3;
+            player2Properties.lives = 3;
+            player2Properties.health = 3;
         } else {
             alert(object.name + ' wins the round!');
         }
 
-        player1Object.gravity = true;
-        player1Object.airborne = false;
-        player1Object.jumping = false;
-        player1Object.playerDirection = 'right';
-        player1Object.playerSpeed = 2;
-        player1Object.health = 3;
+        player1Properties.airborne = false;
+        player1Properties.direction = 'right';
+        player1Properties.playerSpeed = 2;
+        player1Properties.health = 3;
         $player1Health.text(3);
 
-        player2Object.gravity = true;
-        player2Object.airborne = false;
-        player2Object.jumping = false;
-        player2Object.playerDirection = 'left';
-        player2Object.playerSpeed = 2;
-        player2Object.health = 3;
+        player2Properties.airborne = false;
+        player2Properties.direction = 'left';
+        player2Properties.playerSpeed = 2;
+        player2Properties.health = 3;
         $player2Health.text(3);
 
         $player1.remove().css({
@@ -426,6 +427,4 @@ function setup() {
         }).appendTo($('main'));
     }
 
-}
-
-$(setup);
+});

@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', function () {
         airborne: false,
         jumping: false,
         noLasers: true,
-        playerDirection: 'right',
+        direction: 'right',
         health: 3,
         lives: 3,
         laserSpeed: 500,
@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', function () {
         airborne: false,
         jumping: false,
         noLasers: true,
-        playerDirection: 'left',
+        direction: 'left',
         health: 3,
         lives: 3,
         laserSpeed: 500,
@@ -234,10 +234,10 @@ window.addEventListener('DOMContentLoaded', function () {
         if ((event.which === 9 || event.which === 69) && player1Object.noLasers) {
             console.log('Pew!');
             playSoundEffect('laser', 'mp3');
-            return pewPew(player1, player2, playerOffset(player1Object), player1Object.playerDirection, player1Object, player2Object, player1Object.laserSpeed);
+            return pewPew(player1, player2, playerOffset(player1Object), player1Object.direction, player1Object, player2Object, player1Object.laserSpeed);
         } else if ((event.which === 8 || event.which === 16) && player2Object.noLasers) {
             playSoundEffect('laser', 'mp3');
-            return pewPew(player2, player1, playerOffset(player2Object), player2Object.playerDirection, player2Object, player1Object, player2Object.laserSpeed);
+            return pewPew(player2, player1, playerOffset(player2Object), player2Object.direction, player2Object, player1Object, player2Object.laserSpeed);
         } else if (event.which === 40) {
             player2Object.ducking = true;
             player2Object.jumping = true;
@@ -261,7 +261,7 @@ window.addEventListener('DOMContentLoaded', function () {
     //Laser function
 
     function playerOffset(object) {
-        if (object.playerDirection === 'right') {
+        if (object.direction === 'right') {
             return 30;
         } else {
             return -42;
