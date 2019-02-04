@@ -210,17 +210,24 @@ $(function setup() {
             //player 1 shooting. noLasers gives the delay between shots.
             case 'Tab'://           9=tab
             case 'e'://             69=e
+                if (player1Properties.noLasers) {
 
-                playSoundEffect('laser', 'mp3');
-                pewPew($player1, $player2, playerOffset(player1Properties), player1Properties.direction, player1Properties, player2Properties, player1Properties.laserSpeed);
+                    playSoundEffect('laser', 'mp3');
+                    pewPew($player1, $player2, playerOffset(player1Properties), player1Properties.direction, player1Properties, player2Properties, player1Properties.laserSpeed);
+                    
+                }
                 break;
 
             //player2 shooting.
             case 'Backspace'://     8=backspace
             case 'Shift'://         16=shift
 
-                playSoundEffect('laser', 'mp3');
-                pewPew($player2, $player1, playerOffset(player2Properties), player2Properties.direction, player2Properties, player1Properties, player2Properties.laserSpeed);
+                if (player2Properties.noLasers) {
+
+                    playSoundEffect('laser', 'mp3');
+                    pewPew($player2, $player1, playerOffset(player2Properties), player2Properties.direction, player2Properties, player1Properties, player2Properties.laserSpeed);
+
+                }
                 break;
 
             //player2 crouching.
