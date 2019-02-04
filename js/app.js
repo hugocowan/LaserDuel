@@ -62,10 +62,11 @@ $(function setup() {
 
     function collisionPlayer(player, playerProperties, opponentProperties) {
 
-        const playerTop = player.offset().top,
-            playerLeft = player.offset().left,
-            playerRight = player.offset().left + player.width(),
-            playerBottom = playerTop + player.height(),
+        //TODO: Get offsets without jQuery, remove the .each.
+
+        const playerTop = player.offset().top, playerLeft = player.offset().left,
+            playerRight = player.offset().left + player.width(), playerBottom = playerTop + player.height(),
+
             platformsTop = [],
             platformsLeft = [];
 
@@ -154,6 +155,7 @@ $(function setup() {
 
     // Just does gravity
     function newPositionY(oldPosition, keyCode, player, object) {
+
         const newPositionY = parseFloat(oldPosition) + (object.airborne ? object.playerSpeed * 1.25 : 0);
 
         // if(object.ducking && newPositionY >= playableHeight+30){
@@ -231,15 +233,15 @@ $(function setup() {
                 break;
 
             //player2 crouching.
-            case 'ArrowDown'://     40=down
-
-                player2Properties.ducking = true;
-                player2Properties.playerSpeed = 1;
-                $player2.css({
-                    height: '-=30px'
-                    // top: '+=30px'
-                });
-                break;
+            // case 'ArrowDown'://     40=down
+            //
+            //     player2Properties.ducking = true;
+            //     player2Properties.playerSpeed = 1;
+            //     $player2.css({
+            //         height: '-=30px',
+            //         top: '+=30px'
+            //     });
+            //     break;
 
             case 'ArrowUp':
                 !player2Properties.airborne ? characterJump($player2, player2Properties) : null;
@@ -253,14 +255,15 @@ $(function setup() {
 
     window.addEventListener('keyup', function (event) {
         keypress[event.key] = false;
-        if (event.key === '40') {
-            player2Properties.ducking = false;
-            player2Properties.playerSpeed = 2;
-            $player2.css({
-                height: '60px',
-                top: '-=30px'
-            });
-        }
+
+        // if (event.key === 'ArrowDown') {
+        //     player2Properties.ducking = false;
+        //     player2Properties.playerSpeed = 2;
+        //     $player2.css({
+        //         height: '60px',
+        //         top: '-=30px'
+        //     });
+        // }
     });
 
 
