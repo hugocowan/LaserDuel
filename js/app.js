@@ -15,6 +15,8 @@ $(function setup() {
     const $arena = $('main');
     const $player1 = $('.player.one');
     const $player2 = $('.player.two');
+    const player1 = document.getElementsByClassName('player one')[0];
+    const player2 = document.getElementsByClassName('player two')[0];
     const $player1Visor = $('.visor.one');
     const $player2Visor = $('.visor.two');
     const $player1Gun = $('.gun.one');
@@ -33,7 +35,7 @@ $(function setup() {
         health: 3,
         lives: 3,
         laserSpeed: 500,
-        playerSpeed: 2
+        speed: 2
     };
     const player2Properties = {
         name: 'Player2',
@@ -43,7 +45,7 @@ $(function setup() {
         health: 3,
         lives: 3,
         laserSpeed: 500,
-        playerSpeed: 2,
+        speed: 2,
         ducking: false
     };
 
@@ -62,27 +64,16 @@ $(function setup() {
 
     function collisionPlayer(player, playerProperties, opponentProperties) {
 
-        //TODO: Get offsets without jQuery, remove the .each.
-
-        const playerTop = player.offset().top, playerLeft = player.offset().left,
-            playerRight = player.offset().left + player.width(), playerBottom = playerTop + player.height(),
-
-            platformsTop = [],
-            platformsLeft = [];
-
-        $.each(platforms, function () {
-
-            // Use $(this) to get the jQuery object instead of the html document. This gets calculated every time in case the window gets resized.
-            platformsTop.push($(this).offset().top);
-            platformsLeft.push($(this).offset().left);
-        });
+        const playerRect = player.getBoundingClientRect();
 
         for (let i = 0; i < platforms.length; i++) {
 
-            if (playerLeft < platformsLeft[i] + platforms.width() &&
-                playerRight > platformsLeft[i] &&
-                playerTop < platformsTop[i] + platforms.height() &&
-                playerBottom === platformsTop[i]) {
+            const platformRect = platforms[i].getBoundingClientRect();
+
+            if (playerRect.left < platformRect.right &&
+                playerRect.right > platformRect.left &&
+                playerRect.top < platformRect.bottom &&
+                playerRect.bottom === platformRect.top) {
 
                 playerProperties.airborne = false;
 
@@ -90,21 +81,21 @@ $(function setup() {
             }
 
             // makes airborne false if player is at ground level (560px).
-            playerProperties.airborne = playerBottom !== 560;
+            playerProperties.airborne = playerRect.bottom !== 560;
         }
-        // if(playerLeft < ballRight && playerRight > ballLeft &&
-        //   playerTop < ballBottom && playerBottom > ballTop){
+        // if(playerRect.left < ballRect.right && playerRect.right > ballRect.left &&
+        //   playerRect.top < ballRect.bottom && playerRect.bottom > ballRect.top){
         //
         //   console.log('It Happened!!');
         //   $ball.remove();
-        //   opponent.playerSpeed = 1;
+        //   opponent.speed = 1;
         // }
     }
 
 
     // Change player1/2's CSS based on their direction.
 
-    function playerDirection(keyCode1, keyCode2, object) {
+    function playerDirection(keyCode1, keyCode2, playerProperties) {
 
         function css(direction, playerProperties, $player, $visor, $gun) {
 
@@ -134,15 +125,15 @@ $(function setup() {
             css('right', player2Properties, $player2, $player2Visor, $player2Gun);
         }
 
-        return object.playerSpeed;
+        return playerProperties.speed;
     }
 
     // Moves player left/right
-    function newPositionX(oldPosition, keyCode1, keyCode2, object) {
+    function newPositionX(oldPosition, keyCode1, keyCode2, playerProperties) {
 
         const newPositionX = parseFloat(oldPosition) -
-            (keypress[keyCode1] ? playerDirection(keyCode1, keyCode2, object) : 0) +
-            (keypress[keyCode2] ? playerDirection(keyCode1, keyCode2, object) : 0);
+            (keypress[keyCode1] ? playerDirection(keyCode1, keyCode2, playerProperties) : 0) +
+            (keypress[keyCode2] ? playerDirection(keyCode1, keyCode2, playerProperties) : 0);
 
         if (newPositionX <= 0) {
             return 0;
@@ -156,7 +147,7 @@ $(function setup() {
     // Just does gravity
     function newPositionY(oldPosition, keyCode, player, object) {
 
-        const newPositionY = parseFloat(oldPosition) + (object.airborne ? object.playerSpeed * 1.25 : 0);
+        const newPositionY = parseFloat(oldPosition) + (object.airborne ? object.speed * 1.25 : 0);
 
         // if(object.ducking && newPositionY >= playableHeight+30){
         //   console.log('he is crouching and on the ground');
@@ -175,8 +166,8 @@ $(function setup() {
 
     setInterval(function () {
 
-        collisionPlayer($player1, player1Properties, player2Properties);
-        collisionPlayer($player2, player2Properties, player1Properties);
+        collisionPlayer(player1, player1Properties, player2Properties);
+        collisionPlayer(player2, player2Properties, player1Properties);
 
         $player1.css({
             left: function (index, oldPosition) {
@@ -236,7 +227,7 @@ $(function setup() {
             // case 'ArrowDown'://     40=down
             //
             //     player2Properties.ducking = true;
-            //     player2Properties.playerSpeed = 1;
+            //     player2Properties.speed = 1;
             //     $player2.css({
             //         height: '-=30px',
             //         top: '+=30px'
@@ -258,7 +249,7 @@ $(function setup() {
 
         // if (event.key === 'ArrowDown') {
         //     player2Properties.ducking = false;
-        //     player2Properties.playerSpeed = 2;
+        //     player2Properties.speed = 2;
         //     $player2.css({
         //         height: '60px',
         //         top: '-=30px'
@@ -409,13 +400,13 @@ $(function setup() {
 
         player1Properties.airborne = false;
         player1Properties.direction = 'right';
-        player1Properties.playerSpeed = 2;
+        player1Properties.speed = 2;
         player1Properties.health = 3;
         $player1Health.text(3);
 
         player2Properties.airborne = false;
         player2Properties.direction = 'left';
-        player2Properties.playerSpeed = 2;
+        player2Properties.speed = 2;
         player2Properties.health = 3;
         $player2Health.text(3);
 

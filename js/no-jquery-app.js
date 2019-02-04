@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', function () {
         health: 3,
         lives: 3,
         laserSpeed: 500,
-        playerSpeed: 2
+        speed: 2
     };
     const player2Object = {
         name: 'Player2',
@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', function () {
         health: 3,
         lives: 3,
         laserSpeed: 500,
-        playerSpeed: 2,
+        speed: 2,
         ducking: false
     };
 
@@ -67,27 +67,27 @@ window.addEventListener('DOMContentLoaded', function () {
             player1.setAttribute('style', "borderRadius: '15px 2px 0 0';");
             player1Visor.setAttribute('style', "left: '0px'; borderRadius: '10px 2px 0 0';");
             player1Gun.setAttribute('style', "left: '-9px';");
-            return object.playerSpeed;
+            return object.speed;
         } else if (keypress[keyCode2] && keyCode2 === 68) {
             player1Object.playerDirection = 'right';
             player1.setAttribute('style', "borderRadius: '2px 15px 0 0';");
             player1Visor.setAttribute('style', "left: '3.6px'; borderRadius: '2px 10px 0 0';");
             player1Gun.setAttribute('style', "left: '20px';");
-            return object.playerSpeed;
+            return object.speed;
         } else if (keypress[keyCode1] && keyCode1 === 37) {
             player2Object.playerDirection = 'left';
             player2.setAttribute('style', "borderRadius: '15px 2px 0 0';");
             player2Visor.setAttribute('style', "left: '0px'; borderRadius: '10px 2px 0 0';");
             player2Gun.setAttribute('style', "left: '-9px';");
-            return object.playerSpeed;
+            return object.speed;
         } else if (keypress[keyCode2] && keyCode2 === 39) {
             player2Object.playerDirection = 'right';
             player2.setAttribute('style', "borderRadius: '2px 15px 0 0';");
             player2Visor.setAttribute('style', "left: '3.6px'; borderRadius: '2px 10px 0 0';");
             player2Gun.setAttribute('style', "left: '20px';");
-            return object.playerSpeed;
+            return object.speed;
         }
-        return object.playerSpeed;
+        return object.speed;
     }
 
     function newPositionX(oldPosition, keyCode1, keyCode2, object) {
@@ -104,7 +104,7 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     function newPositionY(oldPosition, keyCode, player, object) {
-        const newPositionY = parseFloat(oldPosition) - ((keypress[keyCode] && !object.airborne && !object.jumping) ? characterJump(player, object) : 0) + (object.gravity ? object.playerSpeed * 1.25 : 0);
+        const newPositionY = parseFloat(oldPosition) - ((keypress[keyCode] && !object.airborne && !object.jumping) ? characterJump(player, object) : 0) + (object.gravity ? object.speed * 1.25 : 0);
 
         // if(object.ducking && newPositionY >= playableHeight+30){
         //   console.log('he is crouching and on the ground');
@@ -165,7 +165,7 @@ window.addEventListener('DOMContentLoaded', function () {
             arrayLeft.push(platform.offset().left);
             // console.log(arrayTop, arrayLeft);
         });
-        // console.log('player1:',opponent.playerSpeed, 'player2:',object.playerSpeed);
+        // console.log('player1:',opponent.speed, 'player2:',object.speed);
 
         for (var i = 0; i < platforms.length; i++) {
 
@@ -192,7 +192,7 @@ window.addEventListener('DOMContentLoaded', function () {
         //
         //   console.log('It Happened!!');
         //   $ball.remove();
-        //   opponent.playerSpeed = 1;
+        //   opponent.speed = 1;
         // }
     }
 
