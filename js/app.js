@@ -8,46 +8,49 @@ $(function setup() {
     // const ballLeft = $ball.offset().left;
     // const ballRight = $ball.offset().left+$ball.width();
     // const ballBottom = $ball.offset().top+$ball.height();
-    const $player1Health = $('.player1.health');
-    const $player1Lives = $('.player1.lives');
-    const $player2Health = $('.player2.health');
-    const $player2Lives = $('.player2.lives');
-    const $arena = $('main');
-    const $player1 = $('.player.one');
-    const $player2 = $('.player.two');
-    const player1 = document.getElementsByClassName('player one')[0];
-    const player2 = document.getElementsByClassName('player two')[0];
-    const $player1Visor = $('.visor.one');
-    const $player2Visor = $('.visor.two');
-    const $player1Gun = $('.gun.one');
-    const $player2Gun = $('.gun.two');
-    const playableWidth = $arena.width() - $player1.width(); //=612
-    const playableHeight = $arena.height() - $player1.height(); //=400
-    const keypress = {};
-    const platforms = $('.platform');
-    const keyArray = ['a', 'd', 'w', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Tab', 'e', 'Backspace', 'Shift'];
+    const $player1Health = $('.player1.health'),
+        $player1Lives = $('.player1.lives'),
+        $player2Health = $('.player2.health'),
+        $player2Lives = $('.player2.lives'),
+        $arena = $('main'),
+        $player1 = $('.player.one'),
+        $player2 = $('.player.two'),
+        player1 = document.getElementsByClassName('player one')[0],
+        player2 = document.getElementsByClassName('player two')[0],
+        $player1Visor = $('.visor.one'),
+        $player2Visor = $('.visor.two'),
+        $player1Gun = $('.gun.one'),
+        $player2Gun = $('.gun.two'),
+        playableWidth = $arena.width() - $player1.width(), //=612
+        playableHeight = $arena.height() - $player1.height(), //=400
+        keypress = {},
+        platforms = $('.platform'),
+        keyArray = ['a', 'd', 'w', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Tab', 'e', 'Backspace', 'Shift'],
 
-    const player1Properties = {
-        name: 'Player1',
-        airborne: false,
-        noLasers: true,
-        direction: 'right',
-        health: 3,
-        lives: 3,
-        laserSpeed: 500,
-        speed: 2
-    };
-    const player2Properties = {
-        name: 'Player2',
-        airborne: false,
-        noLasers: true,
-        direction: 'left',
-        health: 3,
-        lives: 3,
-        laserSpeed: 500,
-        speed: 2,
-        ducking: false
-    };
+        player1Properties = {
+            name: 'Player1',
+            airborne: false,
+            noLasers: true,
+            direction: 'right',
+            health: 3,
+            lives: 3,
+            laserSpeed: 500,
+            speed: 2
+        },
+
+        player2Properties = {
+            name: 'Player2',
+            airborne: false,
+            noLasers: true,
+            direction: 'left',
+            health: 3,
+            lives: 3,
+            laserSpeed: 500,
+            speed: 2,
+            ducking: false
+        };
+
+    let laserInterval;
 
 
     // Play the pew pew and pain sound effects
@@ -62,7 +65,7 @@ $(function setup() {
 
     //Movement collision function.
 
-    function collisionPlayer(player, playerProperties, opponentProperties) {
+    function playerCollisions(player, playerProperties, opponentProperties) {
 
         const playerRect = player.getBoundingClientRect();
 
@@ -90,6 +93,58 @@ $(function setup() {
         //   $ball.remove();
         //   opponent.speed = 1;
         // }
+    }
+
+    //Laser collisions
+    function pewPewCollisions($laser, opponent, playerProperties, opponentProperties) {
+
+        const laserTop = $laser.offset().top, laserBottom = $laser.offset().top + $laser.height(),
+            laserLeft = $laser.offset().left, laserRight = $laser.offset().left + $laser.width(),
+            opponentRect = opponent.getBoundingClientRect();
+
+        if ((laserRight > opponentRect.left && laserRight < opponentRect.right &&
+            laserTop > opponentRect.top && laserBottom < opponentRect.bottom) ||
+            (laserLeft > opponentRect.right && laserLeft < opponentRect.left &&
+                laserTop > opponentRect.top && laserBottom < opponentRect.bottom)) {
+
+            playSoundEffect('hurt', 'wav');
+
+            // $opponent.animate({
+            //   'background': 'red'
+            // }, 400);
+
+            $laser.stop().remove();
+
+            if (opponentProperties.health > 1) {
+
+                opponentProperties.health--;
+                $player1Health.text(player1Properties.health);
+                $player2Health.text(player2Properties.health);
+
+            } else {
+
+                opponentProperties.lives--;
+                opponentProperties.health = 3;
+
+                if (opponent === $player1 && player1Properties.lives > 0) {
+
+                    $player1Health.text(3);
+
+                } else if (player2Properties.lives > 0) {
+
+                    $player2Health.text(3);
+
+                }
+
+                $player1Lives.text(player1Properties.lives);
+                $player2Lives.text(player2Properties.lives);
+
+                setTimeout(function () {
+                    reset(playerProperties);
+                }, 20);
+            }
+
+        }
     }
 
 
@@ -166,8 +221,8 @@ $(function setup() {
 
     setInterval(function () {
 
-        collisionPlayer(player1, player1Properties, player2Properties);
-        collisionPlayer(player2, player2Properties, player1Properties);
+        playerCollisions(player1, player1Properties, player2Properties);
+        playerCollisions(player2, player2Properties, player1Properties);
 
         $player1.css({
             left: function (index, oldPosition) {
@@ -213,8 +268,8 @@ $(function setup() {
                 if (player1Properties.noLasers) {
 
                     playSoundEffect('laser', 'mp3');
-                    pewPew($player1, $player2, playerOffset(player1Properties), player1Properties.direction, player1Properties, player2Properties, player1Properties.laserSpeed);
-                    
+                    pewPew(player1, player2, player1Properties.direction, player1Properties, player2Properties, player1Properties.laserSpeed);
+
                 }
                 break;
 
@@ -225,7 +280,7 @@ $(function setup() {
                 if (player2Properties.noLasers) {
 
                     playSoundEffect('laser', 'mp3');
-                    pewPew($player2, $player1, playerOffset(player2Properties), player2Properties.direction, player2Properties, player1Properties, player2Properties.laserSpeed);
+                    pewPew(player2, player1, player2Properties.direction, player2Properties, player1Properties, player2Properties.laserSpeed);
 
                 }
                 break;
@@ -267,121 +322,58 @@ $(function setup() {
 
     //Laser function
 
-    function playerOffset(object) {
-        if (object.direction === 'right') {
-            return 30;
-        } else {
-            return -42;
-        }
-    }
+    function pewPew(shooter, opponent, playerDirection, playerProperties, opponentProperties, timer) {
+        
+        const shooterRect = shooter.getBoundingClientRect(),
+            arenaRect = shooter.parentNode.getBoundingClientRect(),
+            playerGunLeft = shooterRect.left - arenaRect.left + (playerProperties.direction === 'right' ? 30 : -42),
+            playerGunTop = shooterRect.top - arenaRect.top + 20,
+            $laser = $('<div class="laser">'),
+            laserPathLeft = playerGunLeft - 612,
+            laserPathRight = playerGunLeft + 612;
 
+        playerProperties.noLasers = false; //limit lasers
 
-    function pewPew($shooter, $opponent, offset, playerDirection, object, opponentObject, timer) {
-        // console.log($shooter.parent().offset().left);
-        const playerGunLeft = $shooter.offset().left - $shooter.parent().offset().left + offset;
-        const playerGunTop = $shooter.offset().top - $shooter.parent().offset().top + 20;
-        const $laser = $('<div class="laser">');
-        const laserPathLeft = playerGunLeft - 612;
-        const laserPathRight = playerGunLeft + 612;
-        console.log('playerGunLeft', playerGunLeft, 'laser left:', laserPathLeft, 'laser right:', laserPathRight);
-        if (playerDirection === 'right') { //limit lasers
-            object.noLasers = false; //limit lasers
-            // console.log('start of function, noLasers is', object.noLasers);
-            $laser.css({
-                left: playerGunLeft,
-                top: playerGunTop
-            });
-            $laser.appendTo($('main')).animate({
-                left: [laserPathRight, 'linear']
-            }, {
-                complete: function () {
-                    $laser.stop().remove();
-                }
-            });
-        } else {
-            object.noLasers = false; //limit lasers
-            $laser.css({
-                left: playerGunLeft,
-                top: playerGunTop
-            });
-            $laser.appendTo($('main')).animate({
-                left: [laserPathLeft, 'linear']
-            }, {
-                complete: function () {
-                    $laser.stop().remove();
-                }
-            });
-        }
+        $laser.css({
+            left: playerGunLeft,
+            top: playerGunTop
+        });
 
-
-        var laserInterval = setInterval(pewPewCollisions, 1);
-
-        function pewPewCollisions() {
-            // console.log('pewPew collisions running');
-
-            const opponentLeft = $opponent.offset().left;
-            const opponentTop = $opponent.offset().top;
-            const opponentRight = opponentLeft + $opponent.width();
-            const opponentBottom = opponentTop + $opponent.height();
-
-            const laserTop = $laser.offset().top;
-            const laserBottom = $laser.offset().top + $laser.height();
-            const laserLeft = $laser.offset().left;
-            const laserRight = $laser.offset().left + $laser.width();
-
-            if ((laserRight > opponentLeft && laserRight < opponentRight &&
-                laserTop > opponentTop && laserBottom < opponentBottom) ||
-                (laserLeft > opponentRight && laserLeft < opponentLeft &&
-                    laserTop > opponentTop && laserBottom < opponentBottom)) {
-                console.log('BOOM');
-                playSoundEffect('hurt', 'wav');
-                // $opponent.animate({
-                //   'background': 'red'
-                // }, 400);
+        $laser.appendTo($('main')).animate({
+            left: [playerDirection === 'right' ? laserPathRight: laserPathLeft, 'linear']
+        }, {
+            complete: function () {
                 $laser.stop().remove();
-                if (opponentObject.health > 1) {
-                    opponentObject.health--;
-                    $player1Health.text(player1Properties.health);
-                    $player2Health.text(player2Properties.health);
-                } else {
-                    opponentObject.lives--;
-                    opponentObject.health = 3;
-                    if ($opponent === $player1 && player1Properties.lives > 0) {
-                        $player1Health.text(3);
-                    } else if (player2Properties.lives > 0) {
-                        $player2Health.text(3);
-                    }
-                    $player1Lives.text(player1Properties.lives);
-                    $player2Lives.text(player2Properties.lives);
-                    setTimeout(function () {
-                        reset(object);
-                    }, 20);
-                }
             }
-        }
+        });
 
-        function pauseLasers(object, timer) {
-            setTimeout(function () {
-                // console.log('pauseLasers, noLasers is', object.noLasers);
-                clearInterval(laserInterval);
-                object.noLasers = true; //limit lasers
-            }, timer);
-        }
+        //Interval to run laser collisions every ms
+        laserInterval = setInterval(function () {
+            pewPewCollisions($laser, opponent, playerProperties, opponentProperties);
+        }, 1);
 
-        pauseLasers(object, timer);
+        // Stop laser collision detection after ${timer} ms
+        setTimeout(function () {
+
+            clearInterval(laserInterval);
+            // To delay next laser shot.
+            playerProperties.noLasers = true; //Allow lasers
+        }, timer);
+
     }
 
-    function reset(object) {
-        console.log('reset running!');
+
+    //Reset lives/health/player positions
+    function reset(playerProperties) {
 
         keyArray.forEach(function (keycode) {
             keypress[keycode] = false;
         });
 
+        if (player2Properties.lives === 0 || player1Properties.lives === 0) {
 
-        if (object.name === 'Player1' && (player2Properties.lives === 0)) {
             $player1Health.text(0);
-            alert('Player1 Wins the game!!! WOOOOOO');
+            alert(`${playerProperties.name} Wins the game!!! WOOOOOO`);
             $player1Lives.text(3);
             $player1Health.text(3);
             $player2Lives.text(3);
@@ -390,19 +382,10 @@ $(function setup() {
             player1Properties.health = 3;
             player2Properties.lives = 3;
             player2Properties.health = 3;
-        } else if (object.name === 'Player2' && (player1Properties.lives === 0)) {
-            $player2Health.text(0);
-            alert('Player2 Wins the game!!! WOOOOOO');
-            $player1Lives.text(3);
-            $player1Health.text(3);
-            $player2Lives.text(3);
-            $player2Health.text(3);
-            player1Properties.lives = 3;
-            player1Properties.health = 3;
-            player2Properties.lives = 3;
-            player2Properties.health = 3;
+
         } else {
-            alert(object.name + ' wins the round!');
+
+            alert(`${playerProperties.name} wins the round!`);
         }
 
         player1Properties.airborne = false;
@@ -417,15 +400,17 @@ $(function setup() {
         player2Properties.health = 3;
         $player2Health.text(3);
 
-        $player1.remove().css({
+
+        // CSS could be randomised to make the starts a little more interesting...?
+        $player1.css({
             top: '300px',
             left: '15px'
-        }).appendTo($('main'));
+        });
 
-        $player2.remove().css({
+        $player2.css({
             top: '300px',
             left: '597px'
-        }).appendTo($('main'));
+        });
     }
 
 });
