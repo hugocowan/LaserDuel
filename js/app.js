@@ -1,33 +1,19 @@
 $(function setup() {
 
-
-    //Global variables.
-
     // $ball = $('.ball');
     // ballTop = $ball.offset().top;
     // ballLeft = $ball.offset().left;
     // ballRight = $ball.offset().left+$ball.width();
     // ballBottom = $ball.offset().top+$ball.height();
-    $player1Health = $('.player1.health');
-    $player1Lives = $('.player1.lives');
-    $player2Health = $('.player2.health');
-    $player2Lives = $('.player2.lives');
+
     $arena = $('main');
-    $player1 = $('.player.one');
-    $player2 = $('.player.two');
-    player1 = document.getElementsByClassName('player one')[0];
-    player2 = document.getElementsByClassName('player two')[0];
-    $player1Visor = $('.visor.one');
-    $player2Visor = $('.visor.two');
-    $player1Gun = $('.gun.one');
-    $player2Gun = $('.gun.two');
-    playableWidth = $arena.width() - $player1.width(); //=612
-    playableHeight = $arena.height() - $player1.height(); //=400
     keypress = {};
     platforms = $('.platform');
     keyArray = ['a', 'd', 'w', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Tab', 'e', 'Backspace', 'Shift'];
     playerOne = new Player('Player1', false, true, 'right', 3, 3, 500, 2);
     playerTwo = new Player('Player2', false, true, 'left', 3, 3, 500, 2);
+    playableWidth = $arena.width() - playerOne.$body.width(); //=612
+    playableHeight = $arena.height() - playerOne.$body.height(); //=400
 
     //Keydown events
 
@@ -72,11 +58,11 @@ $(function setup() {
             //     break;
 
             case 'ArrowUp':
-                !playerTwo.airborne ? characterJump($player2, playerTwo) : null;
+                !playerTwo.airborne ? characterJump(playerTwo) : null;
                 break;
 
             case 'w':
-                !playerOne.airborne ? characterJump($player1, playerOne) : null;
+                !playerOne.airborne ? characterJump(playerOne) : null;
                 break;
         }
     });

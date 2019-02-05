@@ -37,12 +37,12 @@ function reset(player) {
 
 
     // CSS could be randomised to make the starts a little more interesting...?
-    playerOne.$html.css({
+    playerOne.$body.css({
         top: '300px',
         left: '15px'
     });
 
-    playerTwo.$html.css({
+    playerTwo.$body.css({
         top: '300px',
         left: '597px'
     });

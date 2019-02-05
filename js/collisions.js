@@ -1,8 +1,8 @@
 //Movement collision function.
 
-function playerCollisions(player, playerProperties, opponentProperties) {
+function playerCollisions(player, opponent) {
 
-    const playerRect = player.getBoundingClientRect();
+    const playerRect = player.getRect();
 
     for (let i = 0; i < platforms.length; i++) {
 
@@ -13,13 +13,13 @@ function playerCollisions(player, playerProperties, opponentProperties) {
             playerRect.top < platformRect.bottom &&
             playerRect.bottom === platformRect.top) {
 
-            playerProperties.airborne = false;
+            player.airborne = false;
 
             break;
         }
 
         // makes airborne false if player is at ground level (560px).
-        playerProperties.airborne = playerRect.bottom !== 560;
+        player.airborne = playerRect.bottom !== 560;
     }
     // if(playerRect.left < ballRect.right && playerRect.right > ballRect.left &&
     //   playerRect.top < ballRect.bottom && playerRect.bottom > ballRect.top){
@@ -37,7 +37,7 @@ function pewPewCollisions($laser, opponent) {
 
     const laserTop = $laser.offset().top, laserBottom = $laser.offset().top + $laser.height(),
         laserLeft = $laser.offset().left, laserRight = $laser.offset().left + $laser.width(),
-        opponentRect = opponent.html.getBoundingClientRect();
+        opponentRect = opponent.getRect();
 
     if ((laserRight > opponentRect.left && laserRight < opponentRect.right &&
         laserTop > opponentRect.top && laserBottom < opponentRect.bottom) ||
@@ -69,8 +69,8 @@ function pewPewCollisions($laser, opponent) {
 
             }
 
-            $player1Lives.text(playerOne.lives);
-            $player2Lives.text(playerTwo.lives);
+            playerOne.$lives.text(playerOne.lives);
+            playerTwo.$lives.text(playerTwo.lives);
 
             setTimeout(function () {
                 reset(opponent);

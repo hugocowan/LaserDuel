@@ -4,21 +4,21 @@
 
 //Player movement
 
-function playerMovementCSS($player, keyCode1, keyCode2, playerProperties) {
+function playerMovementCSS(keyCode1, keyCode2, player) {
 
-    $player.css({
+    player.$body.css({
         left: function (index, oldPosition) {
-            return newPositionX(oldPosition, keyCode1, keyCode2, playerProperties);
+            return newPositionX(oldPosition, keyCode1, keyCode2, player);
         },
         top: function (index, oldPosition) {
-            return newPositionY(oldPosition, playerProperties);
+            return newPositionY(oldPosition, player);
         }
     });
 }
 
 //Player direction
 
-function playerDirectionCSS(direction, playerProperties, $player, $visor, $gun) {
+function playerDirectionCSS(direction, player) {
 
     let playerCSS = { borderRadius: '15px 2px 0 0' },
         visorCSS = { left: '0px', borderRadius: '10px 2px 0 0' },
@@ -30,19 +30,19 @@ function playerDirectionCSS(direction, playerProperties, $player, $visor, $gun) 
         gunCSS = { left: '20px' };
     }
 
-    playerProperties.direction = direction;
-    $player.css(playerCSS);
-    $visor.css(visorCSS);
-    $gun.css(gunCSS);
+    player.direction = direction;
+    player.$body.css(playerCSS);
+    player.$visor.css(visorCSS);
+    player.$gun.css(gunCSS);
 }
 
 
 //Jumping function
 
-function characterJump(player, playerProperties) {
+function characterJump(player) {
 
-    playerProperties.airborne = true;
-    player.animate({
+    player.airborne = true;
+    player.$body.animate({
         'top': '-=110px'
     });
 }

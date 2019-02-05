@@ -3,8 +3,8 @@
 function pewPew(shooter, opponent) {
 
 
-    const shooterRect = shooter.html.getBoundingClientRect(),
-        arenaRect = shooter.html.parentNode.getBoundingClientRect(),
+    const shooterRect = shooter.getRect(),
+        arenaRect = shooter.body.parentNode.getBoundingClientRect(),
         playerGunLeft = shooterRect.left - arenaRect.left + (shooter.direction === 'right' ? 30 : -42),
         playerGunTop = shooterRect.top - arenaRect.top + 20,
         $laser = $('<div class="laser">'),
