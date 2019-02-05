@@ -26,29 +26,8 @@ $(function setup() {
     keypress = {};
     platforms = $('.platform');
     keyArray = ['a', 'd', 'w', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Tab', 'e', 'Backspace', 'Shift'];
-
-    player1Properties = {
-        name: 'Player1',
-        airborne: false,
-        noLasers: true,
-        direction: 'right',
-        health: 3,
-        lives: 3,
-        laserSpeed: 500,
-        speed: 2
-    };
-
-    player2Properties = {
-        name: 'Player2',
-        airborne: false,
-        noLasers: true,
-        direction: 'left',
-        health: 3,
-        lives: 3,
-        laserSpeed: 500,
-        speed: 2,
-        ducking: false
-    };
+    player1Properties = new Player('Player1', false, true, 'right', 3, 3, 500, 2);
+    player2Properties = new Player('Player2', false, true, 'left', 3, 3, 500, 2);
 
 
     //Keydown events
