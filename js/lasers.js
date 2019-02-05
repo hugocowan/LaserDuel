@@ -1,16 +1,17 @@
 //Laser function
 
-function pewPew(shooter, opponent, playerDirection, playerProperties, opponentProperties, timer) {
+function pewPew(shooter, opponent) {
 
-    const shooterRect = shooter.getBoundingClientRect(),
-        arenaRect = shooter.parentNode.getBoundingClientRect(),
-        playerGunLeft = shooterRect.left - arenaRect.left + (playerProperties.direction === 'right' ? 30 : -42),
+
+    const shooterRect = shooter.html.getBoundingClientRect(),
+        arenaRect = shooter.html.parentNode.getBoundingClientRect(),
+        playerGunLeft = shooterRect.left - arenaRect.left + (shooter.direction === 'right' ? 30 : -42),
         playerGunTop = shooterRect.top - arenaRect.top + 20,
         $laser = $('<div class="laser">'),
         laserPathLeft = playerGunLeft - 612,
         laserPathRight = playerGunLeft + 612;
 
-    playerProperties.noLasers = false; //limit lasers
+    shooter.noLasers = false; //limit lasers
 
     $laser.css({
         left: playerGunLeft,
@@ -18,7 +19,7 @@ function pewPew(shooter, opponent, playerDirection, playerProperties, opponentPr
     });
 
     $laser.appendTo($('main')).animate({
-        left: [playerDirection === 'right' ? laserPathRight: laserPathLeft, 'linear']
+        left: [shooter.direction === 'right' ? laserPathRight: laserPathLeft, 'linear']
     }, {
         complete: function () {
             $laser.stop().remove();
@@ -27,15 +28,15 @@ function pewPew(shooter, opponent, playerDirection, playerProperties, opponentPr
 
     //Interval to run laser collisions every ms
     laserInterval = setInterval(function () {
-        pewPewCollisions($laser, opponent, playerProperties, opponentProperties);
+        pewPewCollisions($laser, opponent, shooter);
     }, 1);
 
-    // Stop laser collision detection after ${timer} ms
+    // Stop laser collision detection after ${} ms
     setTimeout(function () {
 
         clearInterval(laserInterval);
         // To delay next laser shot.
-        playerProperties.noLasers = true; //Allow lasers
-    }, timer);
+        shooter.noLasers = true; //Allow lasers
+    }, shooter.laserSpeed);
 
 }

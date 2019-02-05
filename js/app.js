@@ -29,7 +29,6 @@ $(function setup() {
     playerOne = new Player('Player1', false, true, 'right', 3, 3, 500, 2);
     playerTwo = new Player('Player2', false, true, 'left', 3, 3, 500, 2);
 
-
     //Keydown events
 
     window.addEventListener('keydown', function (event) {
@@ -44,7 +43,7 @@ $(function setup() {
                 if (playerOne.noLasers) {
 
                     playSoundEffect('laser', 'mp3');
-                    pewPew(player1, player2, playerOne.direction, playerOne, playerTwo, playerOne.laserSpeed);
+                    pewPew(playerOne, playerTwo);
 
                 }
                 break;
@@ -56,7 +55,7 @@ $(function setup() {
                 if (playerTwo.noLasers) {
 
                     playSoundEffect('laser', 'mp3');
-                    pewPew(player2, player1, playerTwo.direction, playerTwo, playerOne, playerTwo.laserSpeed);
+                    pewPew(playerTwo, playerOne);
 
                 }
                 break;

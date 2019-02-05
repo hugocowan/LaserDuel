@@ -33,11 +33,11 @@ function playerCollisions(player, playerProperties, opponentProperties) {
 
 
 //Laser collisions
-function pewPewCollisions($laser, opponent, playerProperties, opponentProperties) {
+function pewPewCollisions($laser, opponent) {
 
     const laserTop = $laser.offset().top, laserBottom = $laser.offset().top + $laser.height(),
         laserLeft = $laser.offset().left, laserRight = $laser.offset().left + $laser.width(),
-        opponentRect = opponent.getBoundingClientRect();
+        opponentRect = opponent.html.getBoundingClientRect();
 
     if ((laserRight > opponentRect.left && laserRight < opponentRect.right &&
         laserTop > opponentRect.top && laserBottom < opponentRect.bottom) ||
@@ -48,24 +48,24 @@ function pewPewCollisions($laser, opponent, playerProperties, opponentProperties
 
         $laser.stop().remove();
 
-        if (opponentProperties.health > 1) {
+        if (opponent.health > 1) {
 
-            opponentProperties.health--;
-            $player1Health.text(playerOne.health);
-            $player2Health.text(playerTwo.health);
+            opponent.health--;
+            playerOne.$health.text(playerOne.health);
+            playerTwo.$health.text(playerTwo.health);
 
         } else {
 
-            opponentProperties.lives--;
-            opponentProperties.health = 3;
+            opponent.lives--;
+            opponent.health = 3;
 
-            if (opponent === $player1 && playerOne.lives > 0) {
+            if (opponent === playerOne && playerOne.lives > 0) {
 
-                $player1Health.text(3);
+                playerOne.$health.text(3);
 
             } else if (playerTwo.lives > 0) {
 
-                $player2Health.text(3);
+                playerTwo.$health.text(3);
 
             }
 
@@ -73,7 +73,7 @@ function pewPewCollisions($laser, opponent, playerProperties, opponentProperties
             $player2Lives.text(playerTwo.lives);
 
             setTimeout(function () {
-                reset(playerProperties);
+                reset(opponent);
             }, 20);
         }
 
