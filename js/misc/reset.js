@@ -5,7 +5,7 @@ function reset(playerProperties) {
         keypress[keycode] = false;
     });
 
-    if (player2Properties.lives === 0 || player1Properties.lives === 0) {
+    if (playerTwo.lives === 0 || playerOne.lives === 0) {
 
         $player1Health.text(0);
         alert(`${playerProperties.name} Wins the game!!! WOOOOOO`);
@@ -13,26 +13,26 @@ function reset(playerProperties) {
         $player1Health.text(3);
         $player2Lives.text(3);
         $player2Health.text(3);
-        player1Properties.lives = 3;
-        player1Properties.health = 3;
-        player2Properties.lives = 3;
-        player2Properties.health = 3;
+        playerOne.lives = 3;
+        playerOne.health = 3;
+        playerTwo.lives = 3;
+        playerTwo.health = 3;
 
     } else {
 
         alert(`${playerProperties.name} wins the round!`);
     }
 
-    player1Properties.airborne = false;
-    player1Properties.direction = 'right';
-    player1Properties.speed = 2;
-    player1Properties.health = 3;
+    playerOne.airborne = false;
+    playerOne.direction = 'right';
+    playerOne.speed = 2;
+    playerOne.health = 3;
     $player1Health.text(3);
 
-    player2Properties.airborne = false;
-    player2Properties.direction = 'left';
-    player2Properties.speed = 2;
-    player2Properties.health = 3;
+    playerTwo.airborne = false;
+    playerTwo.direction = 'left';
+    playerTwo.speed = 2;
+    playerTwo.health = 3;
     $player2Health.text(3);
 
 

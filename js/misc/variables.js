@@ -23,7 +23,7 @@ let $player1Health,
     ballRight,
     ballBottom,
 
-    player1Properties,
-    player2Properties,
+    playerOne,
+    playerTwo,
 
     laserInterval;

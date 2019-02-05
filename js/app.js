@@ -3,11 +3,11 @@ $(function setup() {
 
     //Global variables.
 
-    // const $ball = $('.ball');
-    // const ballTop = $ball.offset().top;
-    // const ballLeft = $ball.offset().left;
-    // const ballRight = $ball.offset().left+$ball.width();
-    // const ballBottom = $ball.offset().top+$ball.height();
+    // $ball = $('.ball');
+    // ballTop = $ball.offset().top;
+    // ballLeft = $ball.offset().left;
+    // ballRight = $ball.offset().left+$ball.width();
+    // ballBottom = $ball.offset().top+$ball.height();
     $player1Health = $('.player1.health');
     $player1Lives = $('.player1.lives');
     $player2Health = $('.player2.health');
@@ -26,8 +26,8 @@ $(function setup() {
     keypress = {};
     platforms = $('.platform');
     keyArray = ['a', 'd', 'w', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Tab', 'e', 'Backspace', 'Shift'];
-    player1Properties = new Player('Player1', false, true, 'right', 3, 3, 500, 2);
-    player2Properties = new Player('Player2', false, true, 'left', 3, 3, 500, 2);
+    playerOne = new Player('Player1', false, true, 'right', 3, 3, 500, 2);
+    playerTwo = new Player('Player2', false, true, 'left', 3, 3, 500, 2);
 
 
     //Keydown events
@@ -41,10 +41,10 @@ $(function setup() {
             //player 1 shooting. noLasers gives the delay between shots.
             case 'Tab'://           9=tab
             case 'e'://             69=e
-                if (player1Properties.noLasers) {
+                if (playerOne.noLasers) {
 
                     playSoundEffect('laser', 'mp3');
-                    pewPew(player1, player2, player1Properties.direction, player1Properties, player2Properties, player1Properties.laserSpeed);
+                    pewPew(player1, player2, playerOne.direction, playerOne, playerTwo, playerOne.laserSpeed);
 
                 }
                 break;
@@ -53,10 +53,10 @@ $(function setup() {
             case 'Backspace'://     8=backspace
             case 'Shift'://         16=shift
 
-                if (player2Properties.noLasers) {
+                if (playerTwo.noLasers) {
 
                     playSoundEffect('laser', 'mp3');
-                    pewPew(player2, player1, player2Properties.direction, player2Properties, player1Properties, player2Properties.laserSpeed);
+                    pewPew(player2, player1, playerTwo.direction, playerTwo, playerOne, playerTwo.laserSpeed);
 
                 }
                 break;
@@ -64,8 +64,8 @@ $(function setup() {
             //player2 crouching.
             // case 'ArrowDown'://     40=down
             //
-            //     player2Properties.ducking = true;
-            //     player2Properties.speed = 1;
+            //     playerTwo.ducking = true;
+            //     playerTwo.speed = 1;
             //     $player2.css({
             //         height: '-=30px',
             //         top: '+=30px'
@@ -73,11 +73,11 @@ $(function setup() {
             //     break;
 
             case 'ArrowUp':
-                !player2Properties.airborne ? characterJump($player2, player2Properties) : null;
+                !playerTwo.airborne ? characterJump($player2, playerTwo) : null;
                 break;
 
             case 'w':
-                !player1Properties.airborne ? characterJump($player1, player1Properties) : null;
+                !playerOne.airborne ? characterJump($player1, playerOne) : null;
                 break;
         }
     });
@@ -86,8 +86,8 @@ $(function setup() {
         keypress[event.key] = false;
 
         // if (event.key === 'ArrowDown') {
-        //     player2Properties.ducking = false;
-        //     player2Properties.speed = 2;
+        //     playerTwo.ducking = false;
+        //     playerTwo.speed = 2;
         //     $player2.css({
         //         height: '60px',
         //         top: '-=30px'

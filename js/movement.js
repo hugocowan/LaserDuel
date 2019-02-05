@@ -62,22 +62,10 @@ setInterval(function () {
         return;
     }
 
-    playerCollisions(player1, player1Properties, player2Properties);
-    playerCollisions(player2, player2Properties, player1Properties);
+    playerCollisions(player1, playerOne, playerTwo);
+    playerCollisions(player2, playerTwo, playerOne);
 
-    playerMovementCSS($player1, 'a', 'd', player1Properties);
-    playerMovementCSS($player2, 'ArrowLeft', 'ArrowRight', player2Properties);
+    playerMovementCSS($player1, 'a', 'd', playerOne);
+    playerMovementCSS($player2, 'ArrowLeft', 'ArrowRight', playerTwo);
 
 }, 15);
-
-
-
-//Jumping function.
-
-function characterJump(player, playerProperties) {
-
-    playerProperties.airborne = true;
-    player.animate({
-        'top': '-=110px'
-    });
-}

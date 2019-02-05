@@ -51,26 +51,26 @@ function pewPewCollisions($laser, opponent, playerProperties, opponentProperties
         if (opponentProperties.health > 1) {
 
             opponentProperties.health--;
-            $player1Health.text(player1Properties.health);
-            $player2Health.text(player2Properties.health);
+            $player1Health.text(playerOne.health);
+            $player2Health.text(playerTwo.health);
 
         } else {
 
             opponentProperties.lives--;
             opponentProperties.health = 3;
 
-            if (opponent === $player1 && player1Properties.lives > 0) {
+            if (opponent === $player1 && playerOne.lives > 0) {
 
                 $player1Health.text(3);
 
-            } else if (player2Properties.lives > 0) {
+            } else if (playerTwo.lives > 0) {
 
                 $player2Health.text(3);
 
             }
 
-            $player1Lives.text(player1Properties.lives);
-            $player2Lives.text(player2Properties.lives);
+            $player1Lives.text(playerOne.lives);
+            $player2Lives.text(playerTwo.lives);
 
             setTimeout(function () {
                 reset(playerProperties);
