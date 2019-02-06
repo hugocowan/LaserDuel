@@ -36,7 +36,7 @@ function newPositionX(oldPosition, keyCode1, keyCode2, player) {
 // Just does gravity
 function newPositionY(oldPosition, player) {
 
-    const newPositionY = parseFloat(oldPosition) + (player.airborne ? 1.5 : 0);
+    const newPositionY = parseFloat(oldPosition) + (player.airborne ? 1 : 0);
 
     // if (player.body.clientHeight === 30 && newPositionY >= playableHeight + 30) {
     //

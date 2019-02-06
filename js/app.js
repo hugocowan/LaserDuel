@@ -10,8 +10,8 @@ $(function setup() {
     keypress = {};
     platforms = $('.platform');
     keyArray = ['a', 'd', 'w', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Tab', 'e', 'Backspace', 'Shift'];
-    playerOne = new Player('Player 1', false, true, 'right', 3, 3, 500, 2);
-    playerTwo = new Player('Player 2', false, true, 'left', 3, 3, 500, 2);
+    playerOne = new Player('Player 1', false, true, 'right', 3, 3, 500, 0.75);
+    playerTwo = new Player('Player 2', false, true, 'left', 3, 3, 500, 0.75);
     playableWidth = $arena.width() - playerOne.$body.width(); //=612
     playableHeight = $arena.height() - playerOne.$body.height(); //=400
 
@@ -47,6 +47,17 @@ $(function setup() {
                 }
                 break;
 
+            //player1 crouching.
+            case 's':
+
+                playerOne.firstPress === undefined ? playerOne.firstPress = true : playerOne.firstPress = false;
+                // playerOne.speed = 1;
+                playerOne.$body.css({
+                    height: '30px',
+                    top: playerOne.firstPress ? '+=30px' : playerOne.body.offsetTop
+                });
+                break;
+
             //player2 crouching.
             case 'ArrowDown':
 
@@ -71,6 +82,15 @@ $(function setup() {
     window.addEventListener('keyup', function (event) {
         keypress[event.key] = false;
 
+        if (event.key === 's') {
+            playerOne.firstPress = undefined;
+            // playerOne.speed = 2;
+            playerOne.$body.css({
+                height: '60px',
+                top: '-=30px'
+            });
+        }
+
         if (event.key === 'ArrowDown') {
             playerTwo.firstPress = undefined;
             // playerTwo.speed = 2;
@@ -92,6 +112,6 @@ $(function setup() {
         playerMovementCSS('a', 'd', playerOne);
         playerMovementCSS('ArrowLeft', 'ArrowRight', playerTwo);
 
-    }, 15);
+    }, 6.5);
 
 });

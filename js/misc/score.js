@@ -37,13 +37,13 @@ function score(opponent) {
 
     playerOne.airborne = false;
     playerOne.direction = 'right';
-    playerOne.speed = 2;
+    playerOne.speed = 0.75;
     playerOne.health = 3;
     playerOne.$health.text(3);
 
     playerTwo.airborne = false;
     playerTwo.direction = 'left';
-    playerTwo.speed = 2;
+    playerTwo.speed = 0.75;
     playerTwo.health = 3;
     playerTwo.$health.text(3);
 
