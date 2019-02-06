@@ -1,10 +1,7 @@
 $(function setup() {
 
-    // $ball = $('.ball');
-    // ballTop = $ball.offset().top;
-    // ballLeft = $ball.offset().left;
-    // ballRight = $ball.offset().left+$ball.width();
-    // ballBottom = $ball.offset().top+$ball.height();
+    $ball = $('.ball');
+    ball = document.getElementsByClassName('ball')[0];
 
     $arena = $('main');
     keypress = {};
@@ -50,7 +47,7 @@ $(function setup() {
             case 's':
 
                 playerOne.firstPress === undefined ? playerOne.firstPress = true : playerOne.firstPress = false;
-                playerOne.speed = 0.5;
+                playerOne.firstPress ? playerOne.speed = playerOne.speed * 2 / 3 : null;
                 playerOne.$body.css({
                     height: '30px',
                     top: playerOne.firstPress ? '+=30px' : playerOne.body.offsetTop
@@ -61,7 +58,7 @@ $(function setup() {
             case 'ArrowDown':
 
                 playerTwo.firstPress === undefined ? playerTwo.firstPress = true : playerTwo.firstPress = false;
-                playerTwo.speed = 0.5;
+                playerTwo.firstPress ? playerTwo.speed = playerOne.speed * 2 / 3 : null;
                 playerTwo.$body.css({
                     height: '30px',
                     top: playerTwo.firstPress ? '+=30px' : playerTwo.body.offsetTop
@@ -83,7 +80,7 @@ $(function setup() {
 
         if (event.key === 's') {
             playerOne.firstPress = undefined;
-            playerOne.speed = 0.75;
+            playerOne.speed = playerOne.speed * 3 / 2;
             playerOne.$body.css({
                 height: '60px',
                 top: '-=30px'
@@ -92,7 +89,7 @@ $(function setup() {
 
         if (event.key === 'ArrowDown') {
             playerTwo.firstPress = undefined;
-            playerTwo.speed = 0.75;
+            playerTwo.speed = playerTwo.speed * 3 / 2;
             playerTwo.$body.css({
                 height: '60px',
                 top: '-=30px'

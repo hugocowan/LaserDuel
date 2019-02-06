@@ -2,7 +2,8 @@
 
 function playerCollisions(player, opponent) {
 
-    const playerRect = player.getRect();
+    const playerRect = player.getRect(),
+        ballRect = ball.getBoundingClientRect();
 
     for (let i = 0; i < platforms.length; i++) {
 
@@ -21,15 +22,14 @@ function playerCollisions(player, opponent) {
         // makes airborne false if player is at ground level (560px).
         player.airborne = playerRect.bottom !== 560;
     }
-    // if(playerRect.left < ballRect.right && playerRect.right > ballRect.left &&
-    //   playerRect.top < ballRect.bottom && playerRect.bottom > ballRect.top){
-    //
-    //   console.log('It Happened!!');
-    //   $ball.remove();
-    //   opponent.speed = 1;
-    // }
-}
+    if (playerRect.left < ballRect.right && playerRect.right > ballRect.left &&
+        playerRect.top < ballRect.bottom && playerRect.bottom > ballRect.top) {
 
+        console.log('It Happened!!');
+        $ball.remove();
+        opponent.speed = 0.4;
+    }
+}
 
 
 //Laser collisions

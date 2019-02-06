@@ -7,10 +7,7 @@ let $arena,
     keyArray,
 
     $ball,
-    ballTop,
-    ballLeft,
-    ballRight,
-    ballBottom,
+    ball,
 
     playerOne,
     playerTwo,
