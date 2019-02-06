@@ -13,7 +13,6 @@ $(function setup() {
     playerOne = new Player('Player 1', false, true, 'right', 3, 3, 500, 0.75);
     playerTwo = new Player('Player 2', false, true, 'left', 3, 3, 500, 0.75);
     playableWidth = $arena.width() - playerOne.$body.width(); //=612
-    playableHeight = $arena.height() - playerOne.$body.height(); //=400
 
 
     //Keydown events

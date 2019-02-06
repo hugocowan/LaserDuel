@@ -2,7 +2,6 @@
 
 let $arena,
     playableWidth,
-    playableHeight,
     platforms,
     keypress,
     keyArray,
