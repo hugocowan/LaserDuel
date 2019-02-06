@@ -48,6 +48,9 @@ function pewPewCollisions($laser, opponent) {
 
         $laser.stop().remove();
 
+
+        //Logic for scoreboard/win condition.
+
         if (opponent.health > 1) {
 
             opponent.health--;
@@ -58,24 +61,15 @@ function pewPewCollisions($laser, opponent) {
 
             opponent.lives--;
             opponent.health = 3;
-
-            if (opponent === playerOne && playerOne.lives > 0) {
-
-                playerOne.$health.text(3);
-
-            } else if (playerTwo.lives > 0) {
-
-                playerTwo.$health.text(3);
-
-            }
-
-            playerOne.$lives.text(playerOne.lives);
-            playerTwo.$lives.text(playerTwo.lives);
+            opponent.$health.text(3);
+            opponent.$lives.text(opponent.lives);
 
             setTimeout(function () {
                 reset(opponent);
             }, 20);
         }
+
+        console.log(playerOne, playerTwo);
 
     }
 }

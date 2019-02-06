@@ -51,21 +51,3 @@ function newPositionY(oldPosition, player) {
         return newPositionY;
     }
 }
-
-
-
-//Movement Interval.
-
-setInterval(function () {
-
-    if (playerOne === undefined) {
-        return;
-    }
-
-    playerCollisions(playerOne, playerTwo);
-    playerCollisions(playerTwo, playerOne);
-
-    playerMovementCSS('a', 'd', playerOne);
-    playerMovementCSS('ArrowLeft', 'ArrowRight', playerTwo);
-
-}, 15);

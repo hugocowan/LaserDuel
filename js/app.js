@@ -15,6 +15,7 @@ $(function setup() {
     playableWidth = $arena.width() - playerOne.$body.width(); //=612
     playableHeight = $arena.height() - playerOne.$body.height(); //=400
 
+
     //Keydown events
 
     window.addEventListener('keydown', function (event) {
@@ -79,5 +80,18 @@ $(function setup() {
         //     });
         // }
     });
+
+
+    //Movement Interval.
+
+    setInterval(function () {
+
+        playerCollisions(playerOne, playerTwo);
+        playerCollisions(playerTwo, playerOne);
+
+        playerMovementCSS('a', 'd', playerOne);
+        playerMovementCSS('ArrowLeft', 'ArrowRight', playerTwo);
+
+    }, 15);
 
 });
