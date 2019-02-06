@@ -1,14 +1,26 @@
 //Reset lives/health/player positions
-function reset(player) {
+function score(opponent) {
 
-    keyArray.forEach(function (keycode) {
-        keypress[keycode] = false;
-    });
+    if (opponent.health > 1) {
+
+        opponent.health--;
+        playerOne.$health.text(playerOne.health);
+        playerTwo.$health.text(playerTwo.health);
+        return;
+
+    }
+
+    opponent.lives--;
+    opponent.health = 3;
+    opponent.$health.text(3);
+    opponent.$lives.text(opponent.lives);
+
+    keyArray = [];
 
     if (playerTwo.lives === 0 || playerOne.lives === 0) {
 
         playerOne.$health.text(0);
-        alert(`${player.name} Wins the game!!! WOOOOOO`);
+        alert(`${opponent === playerOne ? playerTwo.name : playerOne.name} Wins the game!!! WOOOOOO`);
         playerOne.$lives.text(3);
         playerOne.$health.text(3);
         playerTwo.$lives.text(3);
@@ -20,7 +32,7 @@ function reset(player) {
 
     } else {
 
-        alert(`${player.name} wins the round!`);
+        alert(`${opponent === playerOne ? playerTwo.name : playerOne.name} wins the round!`);
     }
 
     playerOne.airborne = false;
@@ -39,11 +51,13 @@ function reset(player) {
     // CSS could be randomised to make the starts a little more interesting...?
     playerOne.$body.css({
         top: '300px',
-        left: '15px'
+        left: '15px',
+        height: '60px',
     });
 
     playerTwo.$body.css({
         top: '300px',
-        left: '597px'
+        left: '597px',
+        height: '60px',
     });
 }

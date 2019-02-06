@@ -16,7 +16,6 @@ function playerDirection(keyCode1, keyCode2, player) {
 }
 
 
-
 // Moves player left/right
 function newPositionX(oldPosition, keyCode1, keyCode2, player) {
 
@@ -34,20 +33,23 @@ function newPositionX(oldPosition, keyCode1, keyCode2, player) {
 }
 
 
-
 // Just does gravity
 function newPositionY(oldPosition, player) {
 
-    const newPositionY = parseFloat(oldPosition) + (player.airborne ? player.speed * 1.25 : 0);
+    const newPositionY = parseFloat(oldPosition) + (player.airborne ? 1.5 : 0);
 
-    // if(object.ducking && newPositionY >= playableHeight+30){
-    //   console.log('he is crouching and on the ground');wda
-    //   return playableHeight + 30;
+    // if (player.body.clientHeight === 30 && newPositionY >= playableHeight + 30) {
+    //
+    //     console.log('he is crouching and on the ground');
+    //     return playableHeight + 30;
+    //
     // } else
-    if (newPositionY >= playableHeight) {
-        // console.log('he is on the ground.');
-        return playableHeight;
+    if (newPositionY >= player.playableHeight()) {
+
+        return player.playableHeight();
+
     } else {
+
         return newPositionY;
     }
 }

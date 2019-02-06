@@ -10,8 +10,8 @@ $(function setup() {
     keypress = {};
     platforms = $('.platform');
     keyArray = ['a', 'd', 'w', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Tab', 'e', 'Backspace', 'Shift'];
-    playerOne = new Player('Player1', false, true, 'right', 3, 3, 500, 2);
-    playerTwo = new Player('Player2', false, true, 'left', 3, 3, 500, 2);
+    playerOne = new Player('Player 1', false, true, 'right', 3, 3, 500, 2);
+    playerTwo = new Player('Player 2', false, true, 'left', 3, 3, 500, 2);
     playableWidth = $arena.width() - playerOne.$body.width(); //=612
     playableHeight = $arena.height() - playerOne.$body.height(); //=400
 
@@ -25,8 +25,8 @@ $(function setup() {
         switch(event.key) {
 
             //player 1 shooting. noLasers gives the delay between shots.
-            case 'Tab'://           9=tab
-            case 'e'://             69=e
+            case 'Tab':
+            case 'e':
                 if (playerOne.noLasers) {
 
                     playSoundEffect('laser', 'mp3');
@@ -36,8 +36,8 @@ $(function setup() {
                 break;
 
             //player2 shooting.
-            case 'Backspace'://     8=backspace
-            case 'Shift'://         16=shift
+            case 'Backspace':
+            case 'Shift':
 
                 if (playerTwo.noLasers) {
 
@@ -48,15 +48,15 @@ $(function setup() {
                 break;
 
             //player2 crouching.
-            // case 'ArrowDown'://     40=down
-            //
-            //     playerTwo.ducking = true;
-            //     playerTwo.speed = 1;
-            //     $player2.css({
-            //         height: '-=30px',
-            //         top: '+=30px'
-            //     });
-            //     break;
+            case 'ArrowDown':
+
+                playerTwo.firstPress === undefined ? playerTwo.firstPress = true : playerTwo.firstPress = false;
+                // playerTwo.speed = 1;
+                playerTwo.$body.css({
+                    height: '30px',
+                    top: playerTwo.firstPress ? '+=30px' : playerTwo.body.offsetTop
+                });
+                break;
 
             case 'ArrowUp':
                 !playerTwo.airborne ? characterJump(playerTwo) : null;
@@ -71,14 +71,14 @@ $(function setup() {
     window.addEventListener('keyup', function (event) {
         keypress[event.key] = false;
 
-        // if (event.key === 'ArrowDown') {
-        //     playerTwo.ducking = false;
-        //     playerTwo.speed = 2;
-        //     $player2.css({
-        //         height: '60px',
-        //         top: '-=30px'
-        //     });
-        // }
+        if (event.key === 'ArrowDown') {
+            playerTwo.firstPress = undefined;
+            // playerTwo.speed = 2;
+            playerTwo.$body.css({
+                height: '60px',
+                top: '-=30px'
+            });
+        }
     });
 
 

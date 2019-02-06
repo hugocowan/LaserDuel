@@ -12,14 +12,18 @@ function Player(name, airborne, noLasers, direction, health, lives, laserSpeed, 
     this.speed = speed;
 
 
-    this.body = document.getElementsByClassName(`${this.name === 'Player1' ? 'player one' : 'player two'}`)[0];
-    this.$body = $(`${this.name === 'Player1' ? '.player.one' : '.player.two'}`);
-    this.$visor = $(`${this.name === 'Player1' ? '.visor.one' : '.visor.two'}`);
-    this.$gun = $(`${this.name === 'Player1' ? '.gun.one' : '.gun.two'}`);
-    this.$health = $(`${this.name === 'Player1' ? '.player1.health' : '.player2.health'}`);
-    this.$lives = $(`${this.name === 'Player1' ? '.player1.lives' : '.player2.lives'}`);
+    this.body = document.getElementsByClassName(`${this.name === 'Player 1' ? 'player one' : 'player two'}`)[0];
+    this.$body = $(`${this.name === 'Player 1' ? '.player.one' : '.player.two'}`);
+    this.$visor = $(`${this.name === 'Player 1' ? '.visor.one' : '.visor.two'}`);
+    this.$gun = $(`${this.name === 'Player 1' ? '.gun.one' : '.gun.two'}`);
+    this.$health = $(`${this.name === 'Player 1' ? '.player1.health' : '.player2.health'}`);
+    this.$lives = $(`${this.name === 'Player 1' ? '.player1.lives' : '.player2.lives'}`);
 
     this.getRect = function() {
         return this.body.getBoundingClientRect();
     };
+
+    this.playableHeight = function() {
+        return $arena.height() - this.$body.height();
+    }
 }

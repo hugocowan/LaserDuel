@@ -48,28 +48,9 @@ function pewPewCollisions($laser, opponent) {
 
         $laser.stop().remove();
 
-
-        //Logic for scoreboard/win condition.
-
-        if (opponent.health > 1) {
-
-            opponent.health--;
-            playerOne.$health.text(playerOne.health);
-            playerTwo.$health.text(playerTwo.health);
-
-        } else {
-
-            opponent.lives--;
-            opponent.health = 3;
-            opponent.$health.text(3);
-            opponent.$lives.text(opponent.lives);
-
-            setTimeout(function () {
-                reset(opponent);
-            }, 20);
-        }
-
-        console.log(playerOne, playerTwo);
-
+        //Logic for scoreboard/win condition. In a setTimeout to allow pain sound to run before the alert does.
+        setTimeout(function () {
+            score(opponent);
+        }, 10);
     }
 }
