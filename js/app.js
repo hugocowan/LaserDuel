@@ -50,7 +50,7 @@ $(function setup() {
             case 's':
 
                 playerOne.firstPress === undefined ? playerOne.firstPress = true : playerOne.firstPress = false;
-                // playerOne.speed = 1;
+                playerOne.speed = 0.5;
                 playerOne.$body.css({
                     height: '30px',
                     top: playerOne.firstPress ? '+=30px' : playerOne.body.offsetTop
@@ -61,7 +61,7 @@ $(function setup() {
             case 'ArrowDown':
 
                 playerTwo.firstPress === undefined ? playerTwo.firstPress = true : playerTwo.firstPress = false;
-                // playerTwo.speed = 1;
+                playerTwo.speed = 0.5;
                 playerTwo.$body.css({
                     height: '30px',
                     top: playerTwo.firstPress ? '+=30px' : playerTwo.body.offsetTop
@@ -83,7 +83,7 @@ $(function setup() {
 
         if (event.key === 's') {
             playerOne.firstPress = undefined;
-            // playerOne.speed = 2;
+            playerOne.speed = 0.75;
             playerOne.$body.css({
                 height: '60px',
                 top: '-=30px'
@@ -92,7 +92,7 @@ $(function setup() {
 
         if (event.key === 'ArrowDown') {
             playerTwo.firstPress = undefined;
-            // playerTwo.speed = 2;
+            playerTwo.speed = 0.75;
             playerTwo.$body.css({
                 height: '60px',
                 top: '-=30px'

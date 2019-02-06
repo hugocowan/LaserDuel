@@ -38,12 +38,6 @@ function newPositionY(oldPosition, player) {
 
     const newPositionY = parseFloat(oldPosition) + (player.airborne ? 1 : 0);
 
-    // if (player.body.clientHeight === 30 && newPositionY >= playableHeight + 30) {
-    //
-    //     console.log('he is crouching and on the ground');
-    //     return playableHeight + 30;
-    //
-    // } else
     if (newPositionY >= player.playableHeight()) {
 
         return player.playableHeight();

@@ -28,15 +28,17 @@ function pewPew(shooter, opponent) {
 
     //Interval to run laser collisions every ms
     laserInterval = setInterval(function () {
+
         pewPewCollisions($laser, opponent, shooter);
+
     }, 1);
 
-    // Stop laser collision detection after ${} ms
+    // Stop laser collision detection after ${shooter.laserSpeed} ms
     setTimeout(function () {
 
         clearInterval(laserInterval);
-        // To delay next laser shot.
         shooter.noLasers = true; //Allow lasers
+
     }, shooter.laserSpeed);
 
 }

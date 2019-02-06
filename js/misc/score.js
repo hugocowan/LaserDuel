@@ -1,4 +1,5 @@
 //Reset lives/health/player positions
+
 function score(opponent) {
 
     if (opponent.health > 1) {

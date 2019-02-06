@@ -1,4 +1,4 @@
-//Could put methods here like getting player htmldocument, getBoundingClientRect, etc.
+//Player constructor function.
 
 function Player(name, airborne, noLasers, direction, health, lives, laserSpeed, speed) {
 
