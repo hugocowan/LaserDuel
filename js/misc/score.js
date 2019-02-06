@@ -36,6 +36,8 @@ function score(opponent) {
         alert(`${opponent === playerOne ? playerTwo.name : playerOne.name} wins the round!`);
     }
 
+    ball = new Ball();
+
     playerOne.airborne = false;
     playerOne.direction = 'right';
     playerOne.speed = 0.75;

@@ -1,9 +1,9 @@
 $(function setup() {
 
-    $ball = $('.ball');
-    ball = document.getElementsByClassName('ball')[0];
 
     $arena = $('main');
+    arena = document.getElementsByTagName('main')[0];
+    ball = new Ball();
     keypress = {};
     platforms = $('.platform');
     keyArray = ['a', 'd', 'w', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Tab', 'e', 'Backspace', 'Shift'];
@@ -16,9 +16,11 @@ $(function setup() {
 
     window.addEventListener('keydown', function (event) {
         event.preventDefault();
-        keypress[event.key] = true;
 
-        switch(event.key) {
+        const key = event.key.length > 1 ? event.key : event.key.toLowerCase();
+        keypress[key] = true;
+
+        switch(key) {
 
             //player 1 shooting. noLasers gives the delay between shots.
             case 'Tab':
@@ -76,9 +78,11 @@ $(function setup() {
     });
 
     window.addEventListener('keyup', function (event) {
-        keypress[event.key] = false;
 
-        if (event.key === 's') {
+        const key = event.key.length > 1 ? event.key : event.key.toLowerCase();
+        keypress[key] = false;
+
+        if (key === 's') {
             playerOne.firstPress = undefined;
             playerOne.speed = playerOne.speed * 3 / 2;
             playerOne.$body.css({
@@ -87,7 +91,7 @@ $(function setup() {
             });
         }
 
-        if (event.key === 'ArrowDown') {
+        if (key === 'ArrowDown') {
             playerTwo.firstPress = undefined;
             playerTwo.speed = playerTwo.speed * 3 / 2;
             playerTwo.$body.css({

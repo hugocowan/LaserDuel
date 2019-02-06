@@ -3,7 +3,7 @@
 function playerCollisions(player, opponent) {
 
     const playerRect = player.getRect(),
-        ballRect = ball.getBoundingClientRect();
+        ballRect = ball.getRect();
 
     for (let i = 0; i < platforms.length; i++) {
 
@@ -25,8 +25,7 @@ function playerCollisions(player, opponent) {
     if (playerRect.left < ballRect.right && playerRect.right > ballRect.left &&
         playerRect.top < ballRect.bottom && playerRect.bottom > ballRect.top) {
 
-        console.log('It Happened!!');
-        $ball.remove();
+        arena.removeChild(ball.getHTML());
         opponent.speed = 0.4;
     }
 }
