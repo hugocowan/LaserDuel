@@ -1,6 +1,16 @@
 //Player constructor function.
 
-function Player(name, airborne, noLasers, direction, health, lives, laserSpeed, speed) {
+function Player(
+    name,
+    direction,
+    airborne = false,
+    noLasers = true,
+    health = 3,
+    lives = 3,
+    laserSpeed = 500,
+    speed = 0.75,
+    jumpHeight = 110
+) {
 
     this.name = name;
     this.airborne = airborne;
@@ -9,6 +19,7 @@ function Player(name, airborne, noLasers, direction, health, lives, laserSpeed, 
     this.health = health;
     this.lives = lives;
     this.laserSpeed = laserSpeed;
+    this.jumpHeight = jumpHeight;
     this.speed = speed;
 
 
@@ -24,6 +35,6 @@ function Player(name, airborne, noLasers, direction, health, lives, laserSpeed, 
     };
 
     this.playableHeight = function() {
-        return $arena.height() - this.$body.height();
+        return arena.clientHeight - this.body.clientHeight;
     }
 }

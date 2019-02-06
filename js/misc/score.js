@@ -42,12 +42,14 @@ function score(opponent) {
     playerOne.direction = 'right';
     playerOne.speed = 0.75;
     playerOne.health = 3;
+    playerOne.laserSpeed = 500;
     playerOne.$health.text(3);
 
     playerTwo.airborne = false;
     playerTwo.direction = 'left';
     playerTwo.speed = 0.75;
     playerTwo.health = 3;
+    playerOne.laserSpeed = 500;
     playerTwo.$health.text(3);
 
 

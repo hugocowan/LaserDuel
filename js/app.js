@@ -1,16 +1,12 @@
 $(function setup() {
 
-
-    $arena = $('main');
     arena = document.getElementsByTagName('main')[0];
     ball = new Ball();
     keypress = {};
     platforms = $('.platform');
-    keyArray = ['a', 'd', 'w', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Tab', 'e', 'Backspace', 'Shift'];
-    playerOne = new Player('Player 1', false, true, 'right', 3, 3, 500, 0.75);
-    playerTwo = new Player('Player 2', false, true, 'left', 3, 3, 500, 0.75);
-    playableWidth = $arena.width() - playerOne.$body.width(); //=612
-
+    playerOne = new Player('Player 1', 'right');
+    playerTwo = new Player('Player 2', 'left');
+    playableWidth = arena.clientWidth - playerOne.body.clientWidth; //=612
 
     //Keydown events
 
@@ -18,6 +14,7 @@ $(function setup() {
         event.preventDefault();
 
         const key = event.key.length > 1 ? event.key : event.key.toLowerCase();
+
         keypress[key] = true;
 
         switch(key) {
@@ -105,6 +102,7 @@ $(function setup() {
     //Movement Interval.
 
     setInterval(function () {
+
 
         playerCollisions(playerOne, playerTwo);
         playerCollisions(playerTwo, playerOne);

@@ -22,11 +22,14 @@ function playerCollisions(player, opponent) {
         // makes airborne false if player is at ground level (560px).
         player.airborne = playerRect.bottom !== 560;
     }
+
+    // For the ball
     if (playerRect.left < ballRect.right && playerRect.right > ballRect.left &&
         playerRect.top < ballRect.bottom && playerRect.bottom > ballRect.top) {
 
+        Ball.setPowerup(player);
         arena.removeChild(ball.getHTML());
-        opponent.speed = 0.4;
+
     }
 }
 

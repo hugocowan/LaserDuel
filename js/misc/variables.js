@@ -1,11 +1,9 @@
 //Global variables.
 
-let $arena,
-    arena,
+let arena,
     playableWidth,
     platforms,
     keypress,
-    keyArray,
 
     ball,
 

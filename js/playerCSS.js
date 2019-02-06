@@ -43,6 +43,6 @@ function characterJump(player) {
 
     player.airborne = true;
     player.$body.animate({
-        'top': '-=110px'
+        'top': `-=${player.jumpHeight}px`
     });
 }

@@ -20,5 +20,18 @@ class Ball {
         return this.html;
     }
 
+    static setPowerup(player) {
+
+        const randomNumber = Math.floor(Math.random() * 10);
+        
+        if (randomNumber >= 4) {
+
+            player.speed = 1;
+
+        } else {
+
+            player.laserSpeed = 300;
+        }
+    }
 
 }
