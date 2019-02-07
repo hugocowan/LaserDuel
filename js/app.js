@@ -30,7 +30,6 @@ $(function setup() {
                 }
                 break;
 
-
             //player2 shooting.
             case 'Backspace':
             case 'Shift':
@@ -43,7 +42,8 @@ $(function setup() {
                 }
                 break;
 
-            //player1 crouching.
+
+            //player crouching.
             case 's':
 
                 playerOne.firstPress === undefined ? playerOne.firstPress = true : playerOne.firstPress = false;
@@ -54,7 +54,6 @@ $(function setup() {
                 });
                 break;
 
-            //player2 crouching.
             case 'ArrowDown':
 
                 playerTwo.firstPress === undefined ? playerTwo.firstPress = true : playerTwo.firstPress = false;
@@ -65,6 +64,8 @@ $(function setup() {
                 });
                 break;
 
+                
+            //player jumping.
             case 'ArrowUp':
                 !playerTwo.airborne ? characterJump(playerTwo) : null;
                 break;

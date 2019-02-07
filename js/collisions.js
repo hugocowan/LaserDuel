@@ -8,7 +8,7 @@ function playerCollisions(player, opponent) {
     for (let i = 0; i < platforms.length; i++) {
 
         const platformRect = platforms[i].getBoundingClientRect();
-        
+
         if (playerRect.left < platformRect.right &&
             playerRect.right > platformRect.left &&
             playerRect.top < platformRect.bottom &&
