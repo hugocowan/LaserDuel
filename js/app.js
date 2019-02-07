@@ -14,7 +14,6 @@ $(function setup() {
         event.preventDefault();
 
         const key = event.key.length > 1 ? event.key : event.key.toLowerCase();
-
         keypress[key] = true;
 
         switch(key) {
@@ -46,22 +45,12 @@ $(function setup() {
             //player crouching.
             case 's':
 
-                playerOne.firstPress === undefined ? playerOne.firstPress = true : playerOne.firstPress = false;
-                playerOne.firstPress ? playerOne.speed = playerOne.speed * 2 / 3 : null;
-                playerOne.$body.css({
-                    height: '30px',
-                    top: playerOne.firstPress ? '+=30px' : playerOne.body.offsetTop
-                });
+                crouchDown(playerOne);
                 break;
 
             case 'ArrowDown':
 
-                playerTwo.firstPress === undefined ? playerTwo.firstPress = true : playerTwo.firstPress = false;
-                playerTwo.firstPress ? playerTwo.speed = playerOne.speed * 2 / 3 : null;
-                playerTwo.$body.css({
-                    height: '30px',
-                    top: playerTwo.firstPress ? '+=30px' : playerTwo.body.offsetTop
-                });
+                crouchDown(playerTwo);
                 break;
 
                 
@@ -82,21 +71,11 @@ $(function setup() {
         keypress[key] = false;
 
         if (key === 's') {
-            playerOne.firstPress = undefined;
-            playerOne.speed = playerOne.speed * 3 / 2;
-            playerOne.$body.css({
-                height: '60px',
-                top: '-=30px'
-            });
+            crouchUp(playerOne);
         }
 
         if (key === 'ArrowDown') {
-            playerTwo.firstPress = undefined;
-            playerTwo.speed = playerTwo.speed * 3 / 2;
-            playerTwo.$body.css({
-                height: '60px',
-                top: '-=30px'
-            });
+            crouchUp(playerTwo);
         }
     });
 
