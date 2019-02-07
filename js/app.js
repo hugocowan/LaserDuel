@@ -3,7 +3,7 @@ $(function setup() {
     arena = document.getElementsByTagName('main')[0];
     ball = new Ball();
     keypress = {};
-    platforms = $('.platform');
+    platforms = document.getElementsByClassName('platform');
     playerOne = new Player('Player 1', 'right');
     playerTwo = new Player('Player 2', 'left');
     playableWidth = arena.clientWidth - playerOne.body.clientWidth; //=612
@@ -28,6 +28,7 @@ $(function setup() {
 
                 }
                 break;
+
 
             //player2 shooting.
             case 'Backspace':
