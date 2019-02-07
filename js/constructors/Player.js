@@ -28,17 +28,13 @@ function Player(
 
 
     this.body = document.getElementsByClassName(`${this.name === 'Player 1' ? 'player one' : 'player two'}`)[0];
-    this.$body = $(`${this.name === 'Player 1' ? '.player.one' : '.player.two'}`);
-    this.$visor = $(`${this.name === 'Player 1' ? '.visor.one' : '.visor.two'}`);
-    this.$gun = $(`${this.name === 'Player 1' ? '.gun.one' : '.gun.two'}`);
-    this.$health = $(`${this.name === 'Player 1' ? '.player1.health' : '.player2.health'}`);
-    this.$lives = $(`${this.name === 'Player 1' ? '.player1.lives' : '.player2.lives'}`);
-
-
     this.visor = document.getElementsByClassName(`${this.name === 'Player 1' ? 'visor one' : 'visor two'}`)[0];
     this.gun = document.getElementsByClassName(`${this.name === 'Player 1' ? 'gun one' : 'gun two'}`)[0];
     this.healthHTML = document.getElementsByClassName(`${this.name === 'Player 1' ? 'player1 health' : 'player2 health'}`)[0];
     this.livesHTML = document.getElementsByClassName(`${this.name === 'Player 1' ? 'player1 lives' : 'player2 lives'}`)[0];
+
+
+    this.$body = $(`${this.name === 'Player 1' ? '.player.one' : '.player.two'}`);
 
     this.getRect = function() {
         return this.body.getBoundingClientRect();

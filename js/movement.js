@@ -64,8 +64,6 @@ function playerDirection(keyCode1, keyCode2, player) {
     return player.speed;
 }
 
-
-//Change player's visual direction
 function playerDirectionCSS(direction, player) {
 
     let playerCSS = direction === 'left' ? '15px 2px 0 0' : '2px 15px 0 0',
@@ -78,6 +76,21 @@ function playerDirectionCSS(direction, player) {
     player.visor.style.left = visorCSSLeft;
     player.body.style.borderRadius = playerCSS;
     player.visor.style.borderRadius = visorCSSBorderRadius;
+}
+
+//player crouch function.
+function crouchDown(player) {
+    player.firstPress = player.firstPress === undefined;
+    player.firstPress ? player.speed = player.speed * 2 / 3 : null;
+    player.body.style.height = '30px';
+    player.firstPress ? player.body.style.top = player.body.offsetTop + 30 + 'px' : null;
+}
+
+function crouchUp(player) {
+    player.firstPress = undefined;
+    player.speed = player.speed * 3 / 2;
+    player.body.style.height = '60px';
+    player.body.style.top = player.body.offsetTop - 30 + 'px';
 }
 
 

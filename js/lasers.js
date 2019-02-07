@@ -7,29 +7,24 @@ function pewPew(shooter, opponent) {
         arenaRect = shooter.body.parentNode.getBoundingClientRect(),
         playerGunLeft = shooterRect.left - arenaRect.left + (shooter.direction === 'right' ? 30 : -42),
         playerGunTop = shooterRect.top - arenaRect.top + 20,
-        $laser = $('<div class="laser">'),
+        laser = new Laser(playerGunLeft, playerGunTop),
         laserPathLeft = playerGunLeft - 612,
         laserPathRight = playerGunLeft + 612;
 
     shooter.noLasers = false; //limit lasers
 
-    $laser.css({
-        left: playerGunLeft,
-        top: playerGunTop
-    });
-
-    $laser.appendTo($('main')).animate({
+    laser.$body.animate({
         left: [shooter.direction === 'right' ? laserPathRight: laserPathLeft, 'linear']
     }, {
         complete: function () {
-            $laser.stop().remove();
+            laser.$body.stop().remove();
         }
     });
 
     //Interval to run laser collisions every ms
     laserInterval = setInterval(function () {
 
-        pewPewCollisions($laser, opponent, shooter);
+        pewPewCollisions(laser.$body, opponent, shooter);
 
     }, 1);
 
