@@ -137,49 +137,45 @@ main {
   background: black;
 }
 
-.level-one .one {
+.level-one .platform {
   bottom: 90px;
+}
+.level-one .platform-1 {
   left: 10%;
 }
-.level-one .two {
-  bottom: 90px;
+.level-one .platform-2 {
   left: 42%;
 }
-.level-one .three {
-  bottom: 90px;
+.level-one .platform-3 {
   right: 10%;
 }
 
-.level-two .four {
+.level-two .platform {
   bottom: 200px;
 }
-.level-two .five {
-  bottom: 200px;
-  right: 0%;
+.level-two .platform-5 {
+  right: 0;
 }
 
-.level-three .platform.six {
+.level-three .platform {
   bottom: 310px;
+}
+.level-three .platform-6 {
   left: 5%;
 }
-.level-three .platform.seven {
-  bottom: 310px;
+.level-three .platform-7 {
   right: 5%;
 }
-.level-three .platform.eight {
-  bottom: 310px;
+.level-three .platform-8 {
   left: 20%;
 }
-.level-three .platform.nine {
-  bottom: 310px;
+.level-three .platform-9 {
   right: 20%;
 }
-.level-three .platform.ten {
-  bottom: 310px;
+.level-three .platform-10 {
   left: 22%;
 }
-.level-three .platform.eleven {
-  bottom: 310px;
+.level-three .platform-11 {
   right: 22%;
 }
 

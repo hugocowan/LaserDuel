@@ -150,62 +150,62 @@ main {
 }
 
 .level-one {
-    .one {
+    .platform {
         bottom: 90px;
-        left: 10%;
+        &-1 {
+            left: 10%;
+        }
+
+        &-2 {
+            left: 42%;
+        }
+
+        &-3 {
+            right: 10%;
+        }
     }
 
-    .two {
-        bottom: 90px;
-        left: 42%;
-    }
-
-    .three {
-        bottom: 90px;
-        right: 10%;
-    }
 }
 
 .level-two {
-    .four {
+    .platform {
         bottom: 200px;
+        &-4 {
+
+        }
+
+        &-5 {
+            right: 0;
+        }
     }
 
-    .five {
-        bottom: 200px;
-        right: 0%;
-    }
 }
 
 .level-three {
     .platform {
-        &.six {
-            bottom: 310px;
+        bottom: 310px;
+
+        &-6 {
             left: 5%;
         }
 
-        &.seven {
-            bottom: 310px;
+        &-7 {
             right: 5%;
         }
 
-        &.eight {
-            bottom: 310px;
+        &-8 {
             left: 20%;
         }
 
-        &.nine {
-            bottom: 310px;
+        &-9 {
             right: 20%;
         }
 
-        &.ten {
-            bottom: 310px;
+        &-10 {
             left: 22%;
         }
 
-        &.eleven {
-            bottom: 310px;
+        &-11 {
             right: 22%;
         }
     }
