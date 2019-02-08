@@ -23,27 +23,32 @@ body {
 
 .controls {
   position: absolute;
-  display: inline-block;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
   height: 80px;
   width: 220px;
   top: 220px;
   line-height: 40px;
   color: grey;
   font-size: 12px;
-  text-align: center;
+  font-weight: bold;
   border: solid lightGrey 2px;
   border-radius: 8px;
+}
+.controls div {
+  min-width: 33%;
+  flex-grow: 1;
+  max-width: 38%;
+}
+.controls :first-child {
+  position: relative;
+  left: 2%;
 }
 .controls code {
   color: black;
   font-size: 12px;
-}
-.controls span {
-  display: inline-block;
-  padding: 0 8px;
-}
-.controls span.line1 {
-  padding: 0 0 0 30px;
+  font-weight: bold;
 }
 .controls.player1 {
   left: -40%;
@@ -71,6 +76,7 @@ body {
   width: 130px;
   border: solid 8px black;
   border-radius: 3px;
+  line-height: 25px;
 }
 .scoreboard.one {
   left: -34%;

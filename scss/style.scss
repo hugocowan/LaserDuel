@@ -24,29 +24,35 @@ body {
 
 .controls {
     position: absolute;
-    display: inline-block;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
     height: 80px;
     width: 220px;
     top: 220px;
     line-height: 40px;
     color: grey;
     font-size: 12px;
-    text-align: center;
+    font-weight: bold;
+    //text-align: center;
     border: solid lightGrey 2px;
     border-radius: 8px;
+
+    div {
+        min-width: 33%;
+        flex-grow: 1;
+        max-width: 38%;
+    }
+
+    :first-child {
+        position: relative;
+        left: 2%;
+    }
 
     code {
         color: black;
         font-size: 12px;
-    }
-
-    span {
-        display: inline-block;
-        padding: 0 8px;
-
-        &.line1 {
-            padding: 0 0 0 30px;
-        }
+        font-weight: bold;
     }
 
     &.player1 {
@@ -77,6 +83,7 @@ body {
     width: 130px;
     border: solid 8px black;
     border-radius: 3px;
+    line-height: 25px;
 
     &.one {
         left: -34%;
