@@ -6,6 +6,16 @@ class Ball {
         const ball = document.createElement('div');
         ball.setAttribute('class', 'ball');
 
+        const randomNumber = Math.floor(Math.random() * 10);
+
+        if (randomNumber <= 3) {
+            ball.style.left = '28px';
+            ball.style.top = '200px';
+        } else if (randomNumber >= 7) {
+            ball.style.left = '570px';
+            ball.style.top = '200px';
+        }
+
         arena.appendChild(ball);
 
         this.html = document.getElementsByClassName('ball')[0];
