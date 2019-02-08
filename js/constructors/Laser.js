@@ -17,7 +17,7 @@ class Laser {
         return this.html.getBoundingClientRect();
     }
 
-    
+
     getHTML() {
         return this.html;
     }
