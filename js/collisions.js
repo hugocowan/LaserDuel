@@ -23,6 +23,9 @@ function playerCollisions(player, opponent) {
         player.airborne = playerRect.bottom !== 560;
     }
 
+    //TODO make a popup appear (ouside arena/above player's head) that says what buff you got.
+    // E.G. Speed++! or Laser++!
+
     // For the ball
     if (playerRect.left < ballRect.right && playerRect.right > ballRect.left &&
         playerRect.top < ballRect.bottom && playerRect.bottom > ballRect.top) {
@@ -53,6 +56,6 @@ function pewPewCollisions($laser, opponent) {
         //Logic for scoreboard/win condition. In a setTimeout to allow pain sound to run before the alert does.
         setTimeout(function () {
             score(opponent);
-        }, 10);
+        }, 20);
     }
 }

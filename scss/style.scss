@@ -1,10 +1,6 @@
-@font-face {
-    font-family: 'minecraft';
-    src: url('../fonts/Minecraft.ttf');
-}
 
 * {
-    font-family: 'minecraft', sans-serif;
+    font-family: Arial, sans-serif !important;
 }
 
 html {
@@ -13,6 +9,7 @@ html {
 
 body {
     position: relative;
+    color: #4a4a4a;
 }
 
 .ball {
@@ -37,9 +34,6 @@ body {
     text-align: center;
     border: solid lightGrey 2px;
     border-radius: 8px;
-    @media(max-width: 1180px) {
-        opacity: 0.2;
-    }
 
     code {
         color: black;
@@ -56,34 +50,56 @@ body {
     }
 
     &.player1 {
-        left: 90px;
+        left: -40%;
     }
 
     &.player2 {
-        right: 90px;
+        right: -40%;
+    }
+    @media(max-width: 1180px) {
+        opacity: 0.5;
+
+        &.player1 {
+            left: 5%;
+            top: 173px;
+        }
+
+        &.player2 {
+            right: 5%;
+            top: 173px;
+        }
     }
 }
 
 .scoreboard {
     position: absolute;
-    height: 150px;
-    width: 150px;
+    height: 130px;
+    width: 130px;
     border: solid 8px black;
     border-radius: 3px;
-    @media(max-width: 1180px) {
-        opacity: 0.2;
-    }
 
     &.one {
-        left: 128px;
+        left: -34%;
         top: 40px;
         background: #00c3e3;
     }
 
     &.two {
-        right: 128px;
+        right: -34%;
         top: 40px;
         background: #ff4554;
+    }
+    @media(max-width: 1180px) {
+        opacity: 0.2;
+        &.one {
+            left: 10%;
+            top: 0;
+        }
+
+        &.two {
+            right: 10%;
+            top: 0;
+        }
     }
 
     h1 {
@@ -97,17 +113,18 @@ body {
         font-size: 18px;
         font-weight: bold;
         text-align: center;
+
     }
 }
 
 .border {
     position: relative;
     margin: 60px auto;
-    height: 520px;
-    width: 680px;
+    height: 480px;
+    width: 640px;
     border: solid 20px black;
     border-radius: 3px;
-    overflow: hidden;
+
 }
 
 main {
@@ -115,6 +132,7 @@ main {
     margin: auto;
     height: 480px;
     width: 640px;
+    overflow: hidden;
 }
 
 .platform {

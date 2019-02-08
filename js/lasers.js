@@ -16,7 +16,7 @@ function pewPew(shooter, opponent) {
     laser.$body.animate({
         left: [shooter.direction === 'right' ? laserPathRight: laserPathLeft, 'linear']
     }, {
-        complete: function () {
+        'complete': function () {
             laser.$body.stop().remove();
         }
     });
