@@ -10,6 +10,10 @@ function playerCollisions(player, opponent) {
 
         const platformRect = platforms[i].getBoundingClientRect();
 
+        // if (player === playerOne) {
+        //     console.log(playerRect.top, platformRect.top);
+        // }
+
         if (playerRect.left < platformRect.right &&
             playerRect.right > platformRect.left &&
             playerRect.top < platformRect.bottom &&

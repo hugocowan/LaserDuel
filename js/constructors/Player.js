@@ -10,7 +10,7 @@ function Player(
     lives = 3,
     laserSpeed = 500,
     speed = 0.75,
-    jumpHeight = 125,
+    jumpHeight = 110,
     startingTopCSS = 420,
 ) {
 
