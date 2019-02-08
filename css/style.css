@@ -177,26 +177,30 @@ main {
   right: 22%;
 }
 
-.visor {
+.player {
+  position: absolute;
+  width: 28px;
+  height: 60px;
+}
+.player .visor {
   width: 24px;
   height: 14px;
   background-color: black;
   position: absolute;
   top: 4px;
 }
-
-.gun {
+.player .gun {
   position: absolute;
   width: 18px;
   height: 5px;
   background-color: black;
   top: 21px;
 }
-
-.player {
-  position: absolute;
-  width: 28px;
-  height: 60px;
+.player .toast {
+  position: relative;
+  bottom: 20px;
+  right: 13px;
+  opacity: 0.6;
 }
 .player.one {
   top: 420px;

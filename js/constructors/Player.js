@@ -40,6 +40,19 @@ function Player(
         return this.body.getBoundingClientRect();
     };
 
+    this.showToast = function(text) {
+
+        const toast = document.createElement('div');
+        toast.setAttribute('class', 'toast');
+        toast.innerText = text;
+
+        this.body.appendChild(toast);
+
+        setTimeout(function() {
+            toast.remove();
+        }, 1000);
+    };
+
     this.playableHeight = function() {
         return arena.clientHeight - this.body.clientHeight;
     };
