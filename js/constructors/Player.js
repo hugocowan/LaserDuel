@@ -50,7 +50,7 @@ function Player(
 
         setTimeout(function() {
             toast.remove();
-        }, 1000);
+        }, 1200);
     };
 
     this.playableHeight = function() {
