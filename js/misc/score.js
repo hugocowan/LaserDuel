@@ -34,6 +34,7 @@ function score(opponent) {
         alert(`${opponent === playerOne ? playerTwo.name : playerOne.name} wins the round!`);
     }
 
+    ball.getHTML().remove();
     ball = new Ball();
 
     playerOne.airborne = false;
