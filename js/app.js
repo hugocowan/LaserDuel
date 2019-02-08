@@ -3,23 +3,25 @@ $(function setup() {
     arena = document.getElementsByTagName('main')[0];
     ball = new Ball();
     keypress = {};
+    platform1 = new Platform('77%', '10%');
+    platform2 = new Platform('77%', '42%');
+    platform3 = new Platform('77%', '74.4%');
+    platform4 = new Platform('54.2%', '0');
+    platform5 = new Platform('54.2%', '84.4%');
+    platform6 = new Platform('31.2%', '5%');
+    platform7 = new Platform('31.2%', '79.4%');
+    platform8 = new Platform('31.2%', '20%');
+    platform9 = new Platform('31.2%', '70%');
+    platform10 = new Platform('31.2%', '22%');
+    platform11 = new Platform('31.2%', '62.4%');
     platforms = document.getElementsByClassName('platform');
-    platform1 = new Platform('77%');
-    platform2 = new Platform('77%');
-    platform3 = new Platform('77%');
-    platform4 = new Platform('54.2%');
-    platform5 = new Platform('54.2%');
-    platform6 = new Platform('31.2%');
-    platform7 = new Platform('31.2%');
-    platform8 = new Platform('31.2%');
-    platform9 = new Platform('31.2%');
-    platform10 = new Platform('31.2%');
-    platform11 = new Platform('31.2%');
     playerOne = new Player('Player 1', 'right');
     playerTwo = new Player('Player 2', 'left');
     playableWidth = arena.clientWidth - playerOne.body.clientWidth; //=612
 
     //Keydown events
+
+    console.log(platforms);
 
     window.addEventListener('keydown', function (event) {
         event.preventDefault();
