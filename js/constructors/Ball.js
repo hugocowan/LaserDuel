@@ -27,11 +27,15 @@ class Ball {
         if (randomNumber >= 4) {
 
             player.speed = 1;
+            player.showToast('Speed++');
 
         } else {
 
             player.laserSpeed = 300;
+            player.showToast('Laser++');
         }
+
+        arena.removeChild(ball.getHTML());
     }
 
 }

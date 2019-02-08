@@ -31,7 +31,7 @@ function playerCollisions(player, opponent) {
         playerRect.top < ballRect.bottom && playerRect.bottom > ballRect.top) {
 
         Ball.setPowerup(player);
-        arena.removeChild(ball.getHTML());
+
 
     }
 }

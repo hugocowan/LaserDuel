@@ -128,20 +128,4 @@ function characterJump(player) {
     // }
     //
     // let id = setInterval(frame, 0) // draw asap.
-
-
-    // let jumpHeight = parseFloat(player.body.style.top) - player.jumpHeight + 'px';
-    //
-    // player.body.animate([
-    //     { top: player.body.style.top },
-    //     { top: jumpHeight },
-    // ], {
-    //     duration: 500,
-    //     easing: 'linear',
-    //     // fill: 'forwards',
-    // });
-    //
-    // setTimeout(function() {
-    //     player.body.style.top = jumpHeight;
-    // }, 500);
 }

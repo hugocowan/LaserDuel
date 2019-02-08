@@ -6,7 +6,6 @@ let arena,
     keypress,
 
     ball,
-
     playerOne,
     playerTwo,
 
