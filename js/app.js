@@ -4,6 +4,17 @@ $(function setup() {
     ball = new Ball();
     keypress = {};
     platforms = document.getElementsByClassName('platform');
+    platform1 = new Platform('77%');
+    platform2 = new Platform('77%');
+    platform3 = new Platform('77%');
+    platform4 = new Platform('54.2%');
+    platform5 = new Platform('54.2%');
+    platform6 = new Platform('31.2%');
+    platform7 = new Platform('31.2%');
+    platform8 = new Platform('31.2%');
+    platform9 = new Platform('31.2%');
+    platform10 = new Platform('31.2%');
+    platform11 = new Platform('31.2%');
     playerOne = new Player('Player 1', 'right');
     playerTwo = new Player('Player 2', 'left');
     playableWidth = arena.clientWidth - playerOne.body.clientWidth; //=612

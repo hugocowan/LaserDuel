@@ -138,7 +138,7 @@ main {
 }
 
 .level-one .platform {
-  bottom: 90px;
+  top: 77%;
 }
 .level-one .platform-1 {
   left: 10%;
@@ -147,36 +147,39 @@ main {
   left: 42%;
 }
 .level-one .platform-3 {
-  right: 10%;
+  left: 74.4%;
 }
 
 .level-two .platform {
-  bottom: 200px;
+  top: 54.2%;
+}
+.level-two .platform-4 {
+  left: 0;
 }
 .level-two .platform-5 {
-  right: 0;
+  left: 84.4%;
 }
 
 .level-three .platform {
-  bottom: 310px;
+  top: 31.2%;
 }
 .level-three .platform-6 {
   left: 5%;
 }
 .level-three .platform-7 {
-  right: 5%;
+  left: 79.4%;
 }
 .level-three .platform-8 {
   left: 20%;
 }
 .level-three .platform-9 {
-  right: 20%;
+  left: 70%;
 }
 .level-three .platform-10 {
   left: 22%;
 }
 .level-three .platform-11 {
-  right: 22%;
+  left: 62.4%;
 }
 
 .player {
