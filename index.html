@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LaserDuel</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/constructors/Player.js"></script>
     <script type="text/javascript" src="js/constructors/Platform.js"></script>
+    <script type="text/javascript" src="js/constructors/Player.js"></script>
+    <script type="text/javascript" src="js/constructors/Arena.js"></script>
     <script type="text/javascript" src="js/constructors/Laser.js"></script>
     <script type="text/javascript" src="js/constructors/Ball.js"></script>
     <script type="text/javascript" src="js/misc/variables.js"></script>
@@ -47,25 +48,7 @@
         <div>Jump: <code>▲</code></div>  <div>Shoot: <code>⌫</code> / <code>⇧</code></div>
     </div>
     <main>
-        <div class="platforms">
-            <!--<div class="level-one">-->
-                <!--<div class="platform platform-1"></div>-->
-                <!--<div class="platform platform-2"></div>-->
-                <!--<div class="platform platform-3"></div>-->
-            <!--</div>-->
-            <!--<div class="level-two">-->
-                <!--<div class="platform platform-4"></div>-->
-                <!--<div class="platform platform-5"></div>-->
-            <!--</div>-->
-            <!--<div class="level-three">-->
-                <!--<div class="platform platform-6"></div>-->
-                <!--<div class="platform platform-7"></div>-->
-                <!--<div class="platform platform-8"></div>-->
-                <!--<div class="platform platform-9"></div>-->
-                <!--<div class="platform platform-10"></div>-->
-                <!--<div class="platform platform-11"></div>-->
-            <!--</div>-->
-        </div>
+        <div class="platforms"></div>
         <aside class="player one">
             <div class="visor one"></div>
             <div class="gun one"></div>

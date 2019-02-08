@@ -6,7 +6,7 @@ class Laser {
         laser.setAttribute('class', 'laser');
         laser.setAttribute('style', `left: ${playerGunLeft}px; top: ${playerGunTop}px`);
 
-        arena.appendChild(laser);
+        arena.getHTML().appendChild(laser);
 
         this.html = document.getElementsByClassName('laser')[0];
         this.$body = $('.laser');

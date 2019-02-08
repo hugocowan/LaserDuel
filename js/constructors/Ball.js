@@ -16,9 +16,9 @@ class Ball {
             ball.style.top = '200px';
         }
 
-        arena.appendChild(ball);
+        arena.getHTML().appendChild(ball);
 
-        this.html = document.getElementsByClassName('ball')[0];
+        this.html = ball;
     }
 
 
@@ -45,7 +45,7 @@ class Ball {
             player.showToast('Laser++');
         }
 
-        arena.removeChild(ball.getHTML());
+        arena.getHTML().removeChild(ball.getHTML());
     }
 
 }

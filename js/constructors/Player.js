@@ -1,30 +1,20 @@
 //Player constructor function.
 
-function Player(
-    name,
-    direction,
-    startingLeftCSS = null,
-    airborne = false,
-    noLasers = true,
-    health = 3,
-    lives = 3,
-    laserSpeed = 500,
-    speed = 0.75,
-    jumpHeight = 110,
-    startingTopCSS = 420,
-) {
+class Player {
+
+    constructor(name, startingLeftCSS = null, startingTopCSS = null){
 
     this.name = name;
-    this.airborne = airborne;
-    this.noLasers = noLasers;
-    this.direction = direction;
-    this.health = health;
-    this.lives = lives;
-    this.laserSpeed = laserSpeed;
-    this.jumpHeight = jumpHeight;
-    this.speed = speed;
-    this.startingLeftCSS = this.startingLeftCSS || this.name === 'Player 1' ? 15 : 597;
-    this.startingTopCSS = startingTopCSS;
+    this.airborne = false;
+    this.noLasers = true;
+    this.direction = this.name === 'Player 1' ? 'right' : 'left';
+    this.health = 3;
+    this.lives = 3;
+    this.laserSpeed = 500;
+    this.jumpHeight = 110;
+    this.speed = 0.75;
+    this.startingLeftCSS = startingLeftCSS || this.name === 'Player 1' ? 15 : 597;
+    this.startingTopCSS = startingTopCSS || this.playableHeight();
 
 
     this.body = document.getElementsByClassName(`${this.name === 'Player 1' ? 'player one' : 'player two'}`)[0];
@@ -35,12 +25,14 @@ function Player(
 
 
     this.$body = $(`${this.name === 'Player 1' ? '.player.one' : '.player.two'}`);
+    }
 
-    this.getRect = function() {
+
+    getRect() {
         return this.body.getBoundingClientRect();
     };
 
-    this.showToast = function(text) {
+    showToast(text) {
 
         const toast = document.createElement('div');
         toast.setAttribute('class', 'toast');
@@ -53,7 +45,9 @@ function Player(
         }, 1200);
     };
 
-    this.playableHeight = function() {
-        return arena.clientHeight - this.body.clientHeight;
+    playableHeight() {
+        console.log(this.body);
+
+        return arena.getHTML().clientHeight - this.body.clientHeight;
     };
 }

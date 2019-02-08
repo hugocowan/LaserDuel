@@ -1,6 +1,6 @@
 $(function setup() {
 
-    arena = document.getElementsByTagName('main')[0];
+    arena = new Arena;
     ball = new Ball();
     keypress = {};
     platform1 = new Platform('370px', '10%');
@@ -8,16 +8,12 @@ $(function setup() {
     platform3 = new Platform('370px', '74.4%');
     platform4 = new Platform('260px', '0');
     platform5 = new Platform('260px', '84.4%');
-    platform6 = new Platform('150px', '5%');
-    platform7 = new Platform('150px', '79.4%');
-    platform8 = new Platform('150px', '20%');
-    platform9 = new Platform('150px', '70%');
-    platform10 = new Platform('150px', '22%');
-    platform11 = new Platform('150px', '62.4%');
+    platform6 = new Platform('150px', '5%', '209px');
+    platform7 = new Platform('150px', '62.4%', '209px');
     platforms = document.getElementsByClassName('platform');
     playerOne = new Player('Player 1', 'right');
     playerTwo = new Player('Player 2', 'left');
-    playableWidth = arena.clientWidth - playerOne.body.clientWidth; //=612
+    playableWidth = arena.getHTML().clientWidth - playerOne.body.clientWidth; //=612
 
     //Keydown events
 

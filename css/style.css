@@ -136,50 +136,37 @@ main {
   width: 100px;
   background: black;
 }
-
-.level-one .platform {
-  top: 77%;
+.platform-1, .platform-2, .platform-3 {
+  top: 370px;
 }
-.level-one .platform-1 {
+.platform-4, .platform-5 {
+  top: 260px;
+}
+.platform-6, .platform-7 {
+  top: 150px;
+}
+.platform-1 {
   left: 10%;
 }
-.level-one .platform-2 {
+.platform-2 {
   left: 42%;
 }
-.level-one .platform-3 {
+.platform-3 {
   left: 74.4%;
 }
-
-.level-two .platform {
-  top: 54.2%;
-}
-.level-two .platform-4 {
+.platform-4 {
   left: 0;
 }
-.level-two .platform-5 {
+.platform-5 {
   left: 84.4%;
 }
-
-.level-three .platform {
-  top: 31.2%;
-}
-.level-three .platform-6 {
+.platform-6 {
   left: 5%;
+  width: 209px;
 }
-.level-three .platform-7 {
-  left: 79.4%;
-}
-.level-three .platform-8 {
-  left: 20%;
-}
-.level-three .platform-9 {
-  left: 70%;
-}
-.level-three .platform-10 {
-  left: 22%;
-}
-.level-three .platform-11 {
+.platform-7 {
   left: 62.4%;
+  width: 209px;
 }
 
 .player {
