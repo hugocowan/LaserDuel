@@ -7,7 +7,6 @@ function playerMovementCSS(keyCode1, keyCode2, player) {
 
     player.body.style.left = newPositionX(keyCode1, keyCode2, player) + 'px';
     player.body.style.top = newPositionY(player) + 'px';
-
 }
 
 

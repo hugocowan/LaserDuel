@@ -1,9 +1,9 @@
 $(function setup() {
 
-    arena = new Arena;
+    arena = new Arena('arena-1');
     ball = new Ball();
-    playerOne = new Player('Player 1', 'right');
-    playerTwo = new Player('Player 2', 'left');
+    playerOne = new Player('Player 1');
+    playerTwo = new Player('Player 2');
     keypress = {};
     platform1 = new Platform('370px', '10%');
     platform2 = new Platform('370px', '42%');
