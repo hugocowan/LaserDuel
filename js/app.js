@@ -2,6 +2,8 @@ $(function setup() {
 
     arena = new Arena;
     ball = new Ball();
+    playerOne = new Player('Player 1', 'right');
+    playerTwo = new Player('Player 2', 'left');
     keypress = {};
     platform1 = new Platform('370px', '10%');
     platform2 = new Platform('370px', '42%');
@@ -11,8 +13,6 @@ $(function setup() {
     platform6 = new Platform('150px', '5%', '209px');
     platform7 = new Platform('150px', '62.4%', '209px');
     platforms = document.getElementsByClassName('platform');
-    playerOne = new Player('Player 1', 'right');
-    playerTwo = new Player('Player 2', 'left');
     playableWidth = arena.getHTML().clientWidth - playerOne.body.clientWidth; //=612
 
     //Keydown events
@@ -61,7 +61,7 @@ $(function setup() {
                 crouchDown(playerTwo);
                 break;
 
-                
+
             //player jumping.
             case 'ArrowUp':
                 !playerTwo.airborne ? characterJump(playerTwo) : null;

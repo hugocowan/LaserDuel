@@ -3,13 +3,12 @@ class Platform {
     constructor() {
 
         const platform = document.createElement('div'),
-            existingPlatforms = document.getElementsByClassName('platform').length,
-            platformContainer = document.getElementsByClassName('platforms')[0];
+            existingPlatforms = document.getElementsByClassName('platform').length;
 
         platform.setAttribute('class', `platform platform-${existingPlatforms + 1}`);
         // platform.setAttribute('style', `top: ${top}; left: ${left}; height: ${height}; width: ${width}`);
 
-        platformContainer.appendChild(platform);
+        arena.getHTML().appendChild(platform);
 
         this.html = document.getElementsByClassName('ball')[0];
     }
