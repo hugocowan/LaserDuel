@@ -11,7 +11,7 @@ class Platform {
 
         platformContainer.appendChild(platform);
 
-        this.html = document.getElementsByClassName('ball')[0];
+        this.html = platform;
     }
 
 

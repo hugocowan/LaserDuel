@@ -5,14 +5,15 @@ $(function setup() {
     playerOne = new Player('Player 1');
     playerTwo = new Player('Player 2');
     keypress = {};
-    platform1 = new Platform('370px', '10%');
-    platform2 = new Platform('370px', '42%');
-    platform3 = new Platform('370px', '74.4%');
-    platform4 = new Platform('260px', '0');
-    platform5 = new Platform('260px', '84.4%');
-    platform6 = new Platform('150px', '5%', '209px');
-    platform7 = new Platform('150px', '62.4%', '209px');
-    platforms = document.getElementsByClassName('platform');
+    platforms = [
+        new Platform('370px', '10%'),
+        new Platform('370px', '42%'),
+        new Platform('370px', '74.4%'),
+        new Platform('260px', '0'),
+        new Platform('260px', '84.4%'),
+        new Platform('150px', '5%', '209px'),
+        new Platform('150px', '62.4%', '209px')
+    ];
     playableWidth = arena.getHTML().clientWidth - playerOne.body.clientWidth; //=612
 
     //Keydown events

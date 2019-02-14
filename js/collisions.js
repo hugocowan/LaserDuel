@@ -7,20 +7,13 @@ function playerCollisions(player, opponent) {
 
     for (let i = 0; i < platforms.length; i++) {
 
-
-        const platformRect = platforms[i].getBoundingClientRect();
-
-        // if (player === playerOne) {
-        //     console.log(playerRect.top, platformRect.top);
-        // }
+        const platformRect = platforms[i].getRect();
 
         if (playerRect.left < platformRect.right &&
             playerRect.right > platformRect.left &&
             playerRect.top < platformRect.bottom &&
             playerRect.bottom === platformRect.top) {
-
-            console.log('landed');
-
+            
             player.airborne = false;
 
             break;

@@ -6,17 +6,18 @@ class Ball {
         const ball = document.createElement('div');
         ball.setAttribute('class', 'ball');
 
-        const randomNumber = Math.floor(Math.random() * 10);
+        const randomNumber = Math.floor(Math.random() * 10),
+            arenaName = arena.html.className;
 
-        if (randomNumber <= 3) {
+        if (arenaName === 'arena-1' && randomNumber <= 3) {
             ball.style.left = '28px';
             ball.style.top = '200px';
-        } else if (randomNumber >= 7) {
+        } else if (arenaName === 'arena-1' && randomNumber >= 7) {
             ball.style.left = '570px';
             ball.style.top = '200px';
         }
 
-        arena.getHTML().appendChild(ball);
+        arena.html.appendChild(ball);
 
         this.html = ball;
     }
@@ -45,7 +46,7 @@ class Ball {
             player.showToast('Laser++');
         }
 
-        arena.getHTML().removeChild(ball.getHTML());
+        arena.html.removeChild(ball.getHTML());
     }
 
 }
