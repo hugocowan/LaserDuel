@@ -13,7 +13,7 @@ class Player {
         visor.setAttribute('class', name === 'Player 1' ? 'visor one' : 'visor two');
         gun.setAttribute('class', name === 'Player 1' ? 'gun one' : 'gun two');
 
-        arena.getHTML().appendChild(player);
+        arena.html.appendChild(player);
         player.appendChild(visor);
         player.appendChild(gun);
 
@@ -35,7 +35,7 @@ class Player {
         this.healthHTML = document.getElementsByClassName(`${this.name === 'Player 1' ? 'player1 health' : 'player2 health'}`)[0];
 
         this.startingLeftCSS = startingLeftCSS || this.name === 'Player 1' ? 15 : 597;
-        this.startingTopCSS = startingTopCSS || this.playableHeight();
+        this.startingTopCSS = startingTopCSS || this.getPlayableHeight();
 
         this.$body = $(`${this.name === 'Player 1' ? '.player.one' : '.player.two'}`);
 
@@ -59,8 +59,8 @@ class Player {
         }, 1200);
     };
 
-    playableHeight() {
+    getPlayableHeight() {
 
-        return arena.getHTML().clientHeight - this.body.clientHeight;
+        return arena.html.clientHeight - this.body.clientHeight;
     };
 }

@@ -8,8 +8,8 @@ function pewPew(shooter, opponent) {
         playerGunLeft = shooterRect.left - arenaRect.left + (shooter.direction === 'right' ? 30 : -42),
         playerGunTop = shooterRect.top - arenaRect.top + 20,
         laser = new Laser(playerGunLeft, playerGunTop),
-        laserPathLeft = playerGunLeft - playableWidth,
-        laserPathRight = playerGunLeft + playableWidth;
+        laserPathLeft = playerGunLeft - Arena.getPlayableWidth(),
+        laserPathRight = playerGunLeft + Arena.getPlayableWidth();
 
     shooter.noLasers = false; //limit lasers
 

@@ -18,8 +18,4 @@ class Platform {
     getRect() {
         return this.html.getBoundingClientRect();
     }
-
-    getHTML() {
-        return this.html;
-    }
 }

@@ -1,3 +1,8 @@
+// import Arena from './constructors/Arena';
+// import Ball from './constructors/Ball';
+// import Player from './constructors/Player';
+// import Platform from './constructors/Platform';
+
 $(function setup() {
 
     arena = new Arena('arena-1');
@@ -14,10 +19,9 @@ $(function setup() {
         new Platform('150px', '5%', '209px'),
         new Platform('150px', '62.4%', '209px')
     ];
-    playableWidth = arena.getHTML().clientWidth - playerOne.body.clientWidth; //=612
+
 
     //Keydown events
-
 
     window.addEventListener('keydown', function (event) {
         event.preventDefault();

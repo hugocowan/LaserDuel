@@ -13,7 +13,7 @@ function playerCollisions(player, opponent) {
             playerRect.right > platformRect.left &&
             playerRect.top < platformRect.bottom &&
             playerRect.bottom === platformRect.top) {
-            
+
             player.airborne = false;
 
             break;

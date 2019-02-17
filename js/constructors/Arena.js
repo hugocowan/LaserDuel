@@ -20,7 +20,7 @@ class Arena {
         return this.html.getBoundingClientRect();
     }
 
-    getHTML() {
-        return this.html;
+    static getPlayableWidth() {
+        return arena.html.clientWidth - playerOne.body.clientWidth;
     }
 }

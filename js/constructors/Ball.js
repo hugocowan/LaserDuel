@@ -27,10 +27,6 @@ class Ball {
         return this.html.getBoundingClientRect();
     }
 
-    getHTML() {
-        return this.html;
-    }
-
     static setPowerup(player) {
 
         const randomNumber = Math.floor(Math.random() * 10);
@@ -46,7 +42,7 @@ class Ball {
             player.showToast('Laser++');
         }
 
-        arena.html.removeChild(ball.getHTML());
+        arena.html.removeChild(ball.html);
     }
 
 }

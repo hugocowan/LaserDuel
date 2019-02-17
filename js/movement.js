@@ -21,8 +21,8 @@ function newPositionX(keyCode1, keyCode2, player) {
 
     if (newPositionX <= 0) {
         return 0;
-    } else if (newPositionX >= playableWidth) {
-        return playableWidth;
+    } else if (newPositionX >= Arena.getPlayableWidth()) {
+        return Arena.getPlayableWidth();
     } else {
         return newPositionX;
     }
@@ -36,9 +36,9 @@ function newPositionY(player) {
 
     const newPositionY = parseFloat(player.body.style.top) + (player.airborne ? 1 : 0);
 
-    if (newPositionY >= player.playableHeight()) {
+    if (newPositionY >= player.getPlayableHeight()) {
 
-        return player.playableHeight();
+        return player.getPlayableHeight();
 
     } else {
 
