@@ -20,20 +20,25 @@ class Ball {
         arena.html.appendChild(ball);
 
         this.html = ball;
+        this.rect = null;
     }
 
 
     getRect() {
-        return this.html.getBoundingClientRect();
+        return this.rect;
     }
 
-    static setPowerup(player) {
+    setRect() {
+        return this.rect = this.html.getBoundingClientRect();
+    }
+
+    setPowerup(player) {
 
         const randomNumber = Math.floor(Math.random() * 10);
         
         if (randomNumber >= 4) {
 
-            player.speed = 1;
+            player.speed = 2.6;
             player.showToast('Speed++');
 
         } else {
@@ -42,7 +47,8 @@ class Ball {
             player.showToast('Laser++');
         }
 
-        arena.html.removeChild(ball.html);
+        this.html.remove();
+        this.rect = null;
     }
 
 }

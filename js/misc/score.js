@@ -1,4 +1,4 @@
-//Reset lives/health/player positions
+//Set scoreboards and reset lives/health/player positions
 
 function score(opponent) {
 
@@ -39,26 +39,32 @@ function score(opponent) {
 
     playerOne.airborne = false;
     playerOne.direction = 'right';
-    playerOne.speed = 0.75;
+    playerOne.speed = 2.1;
     playerOne.health = 3;
     playerOne.laserSpeed = 500;
     playerOne.healthHTML.innerText = 3;
 
     playerTwo.airborne = false;
     playerTwo.direction = 'left';
-    playerTwo.speed = 0.75;
+    playerTwo.speed = 2.1;
     playerTwo.health = 3;
     playerOne.laserSpeed = 500;
     playerTwo.healthHTML.innerText = 3;
 
 
     // CSS could be randomised to make the starts a little more interesting...?
-    playerOne.body.style.top = '300px';
-    playerOne.body.style.left = '15px';
-    playerOne.body.style.height = '60px';
+    playerOne.html.style.top = '300px';
+    playerOne.html.style.left = '15px';
+    playerOne.html.style.height = '60px';
 
-    playerTwo.body.style.top = '300px';
-    playerTwo.body.style.left = '597px';
-    playerTwo.body.style.height = '60px';
+    playerTwo.html.style.top = '300px';
+    playerTwo.html.style.left = '597px';
+    playerTwo.html.style.height = '60px';
+
+    keypress = {};
+
+    if (laser.html) {
+
+    }
 
 }

@@ -1,9 +1,7 @@
-// import Arena from './constructors/Arena';
-// import Ball from './constructors/Ball';
-// import Player from './constructors/Player';
-// import Platform from './constructors/Platform';
+//Global variables.
+let arena, platforms, keypress, ball, playerOne, playerTwo;
 
-$(function setup() {
+window.addEventListener('DOMContentLoaded', function setup() {
 
     arena = new Arena('arena-1');
     ball = new Ball();
@@ -20,9 +18,7 @@ $(function setup() {
         new Platform('150px', '62.4%', '209px')
     ];
 
-
     //Keydown events
-
     window.addEventListener('keydown', function (event) {
         event.preventDefault();
 
@@ -31,7 +27,7 @@ $(function setup() {
 
         switch(key) {
 
-            //player 1 shooting. noLasers gives the delay between shots.
+            //player shooting. noLasers gives the delay between shots.
             case 'Tab':
             case 'e':
                 if (playerOne.noLasers) {
@@ -42,7 +38,6 @@ $(function setup() {
                 }
                 break;
 
-            //player2 shooting.
             case 'Backspace':
             case 'Shift':
 
@@ -78,6 +73,7 @@ $(function setup() {
         }
     });
 
+    //Keyup events
     window.addEventListener('keyup', function (event) {
 
         const key = event.key.length > 1 ? event.key : event.key.toLowerCase();
@@ -93,10 +89,20 @@ $(function setup() {
     });
 
 
+    //Update platform positions on window resize
+    window.addEventListener('resize', function(eee) {
+
+        platforms.forEach(function (platform) {
+            platform.setRect();
+        });
+
+        ball.setRect();
+        arena.setRect();
+    });
+
+
     //Movement Interval.
-
-    setInterval(function () {
-
+    function movementAndCollision() {
 
         playerCollisions(playerOne, playerTwo);
         playerCollisions(playerTwo, playerOne);
@@ -104,6 +110,10 @@ $(function setup() {
         playerMovementCSS('a', 'd', playerOne);
         playerMovementCSS('ArrowLeft', 'ArrowRight', playerTwo);
 
-    }, 6.5);
+        requestAnimationFrame(movementAndCollision);
+
+    }
+
+    requestAnimationFrame(movementAndCollision);
 
 });

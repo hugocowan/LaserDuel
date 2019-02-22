@@ -1,4 +1,4 @@
-//Player constructor function.
+//Player class.
 
 class Player {
 
@@ -25,25 +25,23 @@ class Player {
         this.lives = 3;
         this.laserSpeed = 500;
         this.jumpHeight = 110;
-        this.speed = 0.75;
+        this.fallSpeed = 2.7;
+        this.speed = 2.1;
 
 
         this.gun = gun;
-        this.body = player;
+        this.html = player;
         this.visor = visor;
-        this.livesHTML = document.getElementsByClassName(`${this.name === 'Player 1' ? 'player1 lives' : 'player2 lives'}`)[0];
-        this.healthHTML = document.getElementsByClassName(`${this.name === 'Player 1' ? 'player1 health' : 'player2 health'}`)[0];
+        this.livesHTML = document.getElementsByClassName(this.name === 'Player 1' ? 'player1 lives' : 'player2 lives')[0];
+        this.healthHTML = document.getElementsByClassName(this.name === 'Player 1' ? 'player1 health' : 'player2 health')[0];
 
         this.startingLeftCSS = startingLeftCSS || this.name === 'Player 1' ? 15 : 597;
         this.startingTopCSS = startingTopCSS || this.getPlayableHeight();
-
-        this.$body = $(`${this.name === 'Player 1' ? '.player.one' : '.player.two'}`);
-
     }
 
 
     getRect() {
-        return this.body.getBoundingClientRect();
+        return this.html.getBoundingClientRect();
     };
 
     showToast(text) {
@@ -52,7 +50,7 @@ class Player {
         toast.setAttribute('class', 'toast');
         toast.innerText = text;
 
-        this.body.appendChild(toast);
+        this.html.appendChild(toast);
 
         setTimeout(function() {
             toast.remove();
@@ -60,7 +58,7 @@ class Player {
     };
 
     getPlayableHeight() {
-
-        return arena.html.clientHeight - this.body.clientHeight;
+        //on standard refresh, player and arena html elements haven't yet loaded.
+        return arena.html.clientHeight - this.html.clientHeight || 480;
     };
 }

@@ -2,6 +2,11 @@ class Arena {
 
     constructor(arenaName) {
 
+        if (document.getElementsByTagName('main')[0]) {
+            document.getElementsByTagName('body')[0].removeChild(document.getElementsByTagName('main')[0]);
+        }
+
+
         const arena = document.createElement('main'),
             platformContainer = document.createElement('div'),
             body = document.getElementsByClassName('border')[0];
@@ -13,14 +18,19 @@ class Arena {
         arena.appendChild(platformContainer);
 
         this.html = arena;
+        this.rect = null;
     }
 
 
     getRect() {
-        return this.html.getBoundingClientRect();
+        return this.rect;
+    }
+
+    setRect() {
+        return this.rect = this.html.getBoundingClientRect();
     }
 
     static getPlayableWidth() {
-        return arena.html.clientWidth - playerOne.body.clientWidth;
+        return arena.html.clientWidth - playerOne.html.clientWidth;
     }
 }

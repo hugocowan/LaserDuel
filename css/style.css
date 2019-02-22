@@ -11,6 +11,14 @@ body {
   color: #4a4a4a;
 }
 
+ul, li, h1 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  text-align: center;
+}
+
 .ball {
   position: absolute;
   width: 40px;
@@ -77,40 +85,34 @@ body {
   border: solid 8px black;
   border-radius: 3px;
   line-height: 25px;
+  top: 40px;
 }
 .scoreboard.one {
   left: -34%;
-  top: 40px;
   background: #00c3e3;
 }
 .scoreboard.two {
   right: -34%;
-  top: 40px;
   background: #ff4554;
 }
 @media (max-width: 1180px) {
   .scoreboard {
     opacity: 0.2;
+    top: 0;
   }
   .scoreboard.one {
     left: 10%;
-    top: 0;
   }
   .scoreboard.two {
     right: 10%;
-    top: 0;
   }
 }
 .scoreboard h1 {
   font-size: 28px;
-  font-weight: bolder;
-  text-align: center;
   line-height: 70px;
 }
 .scoreboard ul {
   font-size: 18px;
-  font-weight: bold;
-  text-align: center;
 }
 
 .border {
@@ -136,43 +138,12 @@ main {
   width: 100px;
   background: black;
 }
-.platform-1, .platform-2, .platform-3 {
-  top: 370px;
-}
-.platform-4, .platform-5 {
-  top: 260px;
-}
-.platform-6, .platform-7 {
-  top: 150px;
-}
-.platform-1 {
-  left: 10%;
-}
-.platform-2 {
-  left: 42%;
-}
-.platform-3 {
-  left: 74.4%;
-}
-.platform-4 {
-  left: 0;
-}
-.platform-5 {
-  left: 84.4%;
-}
-.platform-6 {
-  left: 5%;
-  width: 209px;
-}
-.platform-7 {
-  left: 62.4%;
-  width: 209px;
-}
 
 .player {
   position: absolute;
   width: 28px;
   height: 60px;
+  top: 420px;
 }
 .player .visor {
   width: 24px;
@@ -195,7 +166,6 @@ main {
   opacity: 0.6;
 }
 .player.one {
-  top: 420px;
   left: 15px;
   border-radius: 2px 15px 0 0;
   background: #00c3e3;
@@ -208,7 +178,6 @@ main {
   left: 20px;
 }
 .player.two {
-  top: 420px;
   left: 597px;
   border-radius: 15px 2px 0 0;
   background: #ff4554;

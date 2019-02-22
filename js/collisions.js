@@ -3,17 +3,20 @@
 function playerCollisions(player, opponent) {
 
     const playerRect = player.getRect(),
-        ballRect = ball.getRect();
+        ballRect = ball.getRect() || ball.setRect(),
+        arenaRect = arena.getRect() || arena.setRect();
 
     for (let i = 0; i < platforms.length; i++) {
 
-        const platformRect = platforms[i].getRect();
+        const platformRect = platforms[i].getRect() || platforms[i].setRect();
 
         if (playerRect.left < platformRect.right &&
             playerRect.right > platformRect.left &&
             playerRect.top < platformRect.bottom &&
-            playerRect.bottom === platformRect.top) {
+            playerRect.bottom < platformRect.top + player.fallSpeed &&
+            playerRect.bottom > platformRect.top - player.fallSpeed) {
 
+            player.html.style.top = platformRect.top - arenaRect.top - player.html.clientHeight + 'px';
             player.airborne = false;
 
             break;
@@ -23,35 +26,29 @@ function playerCollisions(player, opponent) {
         player.airborne = playerRect.bottom !== 560;
     }
 
-    //TODO make a popup appear (ouside arena/above player's head) that says what buff you got.
-    // E.G. Speed++! or Laser++!
-
     // For the ball
-    if (playerRect.left < ballRect.right && playerRect.right > ballRect.left &&
+    if (ballRect && playerRect.left < ballRect.right && playerRect.right > ballRect.left &&
         playerRect.top < ballRect.bottom && playerRect.bottom > ballRect.top) {
 
-        Ball.setPowerup(player);
-
-
+        ball.setPowerup(player);
     }
 }
 
 
 //Laser collisions
-function pewPewCollisions($laser, opponent) {
+function pewPewCollisions(laser, opponent) {
 
-    const laserTop = $laser.offset().top, laserBottom = $laser.offset().top + $laser.height(),
-        laserLeft = $laser.offset().left, laserRight = $laser.offset().left + $laser.width(),
+    const laserRect = laser.getRect(),
         opponentRect = opponent.getRect();
 
-    if ((laserRight > opponentRect.left && laserRight < opponentRect.right &&
-        laserTop > opponentRect.top && laserBottom < opponentRect.bottom) ||
-        (laserLeft > opponentRect.right && laserLeft < opponentRect.left &&
-            laserTop > opponentRect.top && laserBottom < opponentRect.bottom)) {
+    if ((laserRect.right > opponentRect.left && laserRect.right < opponentRect.right &&
+        laserRect.top > opponentRect.top && laserRect.bottom < opponentRect.bottom) ||
+        (laserRect.left > opponentRect.right && laserRect.left < opponentRect.left &&
+            laserRect.top > opponentRect.top && laserRect.bottom < opponentRect.bottom)) {
 
         playSoundEffect('hurt', 'wav');
 
-        $laser.stop().remove();
+        laser.html.remove();
 
         //Logic for scoreboard/win condition. In a setTimeout to allow pain sound to run before the alert does.
         setTimeout(function () {

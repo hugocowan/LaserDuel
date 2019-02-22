@@ -12,6 +12,14 @@ body {
     color: #4a4a4a;
 }
 
+ul, li, h1 {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    text-align: center;
+}
+
 .ball {
     position: absolute;
     width: 40px;
@@ -84,43 +92,37 @@ body {
     border: solid 8px black;
     border-radius: 3px;
     line-height: 25px;
+    top: 40px;
 
     &.one {
         left: -34%;
-        top: 40px;
         background: #00c3e3;
     }
 
     &.two {
         right: -34%;
-        top: 40px;
         background: #ff4554;
     }
     @media(max-width: 1180px) {
         opacity: 0.2;
+        top: 0;
+
         &.one {
             left: 10%;
-            top: 0;
         }
 
         &.two {
             right: 10%;
-            top: 0;
         }
     }
 
     h1 {
         font-size: 28px;
-        font-weight: bolder;
-        text-align: center;
         line-height: 70px;
     }
 
     ul {
         font-size: 18px;
-        font-weight: bold;
-        text-align: center;
-
     }
 }
 
@@ -131,7 +133,6 @@ body {
     width: 640px;
     border: solid 20px black;
     border-radius: 3px;
-
 }
 
 main {
@@ -147,54 +148,13 @@ main {
     height: 20px;
     width: 100px;
     background: black;
-
-    &-1, &-2, &-3 {
-        top: 370px;
-    }
-
-    &-4, &-5 {
-        top: 260px;
-    }
-
-    &-6, &-7 {
-        top: 150px;
-    }
-
-    &-1 {
-        left: 10%;
-    }
-
-    &-2 {
-        left: 42%;
-    }
-
-    &-3 {
-        left: 74.4%;
-    }
-
-    &-4 {
-        left: 0;
-    }
-
-    &-5 {
-        left: 84.4%;
-    }
-
-    &-6 {
-        left: 5%;
-        width: 209px;
-    }
-
-    &-7 {
-        left: 62.4%;
-        width: 209px;
-    }
 }
 
 .player {
     position: absolute;
     width: 28px;
     height: 60px;
+    top: 420px;
 
     .visor {
         width: 24px;
@@ -220,7 +180,6 @@ main {
     }
 
     &.one {
-        top: 420px;
         left: 15px;
         border-radius: 2px 15px 0 0;
         background: #00c3e3;
@@ -236,7 +195,6 @@ main {
     }
 
     &.two {
-        top: 420px;
         left: 597px;
         border-radius: 15px 2px 0 0;
         background: #ff4554;

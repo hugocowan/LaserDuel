@@ -4,34 +4,33 @@ function pewPew(shooter, opponent) {
 
 
     const shooterRect = shooter.getRect(),
-        arenaRect = shooter.body.parentNode.getBoundingClientRect(),
+        arenaRect = shooter.html.parentNode.getBoundingClientRect(),
+        playableWidth = Arena.getPlayableWidth(),
         playerGunLeft = shooterRect.left - arenaRect.left + (shooter.direction === 'right' ? 30 : -42),
         playerGunTop = shooterRect.top - arenaRect.top + 20,
         laser = new Laser(playerGunLeft, playerGunTop),
-        laserPathLeft = playerGunLeft - Arena.getPlayableWidth(),
-        laserPathRight = playerGunLeft + Arena.getPlayableWidth();
+        laserDistance = shooter.direction === 'right' ? playerGunLeft + playableWidth : playerGunLeft - playableWidth;
 
     shooter.noLasers = false; //limit lasers
 
-    laser.$body.animate({
-        left: [shooter.direction === 'right' ? laserPathRight: laserPathLeft, 'linear']
-    }, {
-        'complete': function () {
-            laser.$body.stop().remove();
-        }
+    requestAnimationFrame(function () {
+        laser.laserFrame(laser, shooter.direction, laserDistance, playerGunLeft, 0);
     });
 
-    //Interval to run laser collisions every ms
-    laserInterval = setInterval(function () {
 
-        pewPewCollisions(laser.$body, opponent, shooter);
+    function laserCollisions() {
 
-    }, 1);
+        pewPewCollisions(laser, opponent, shooter);
+
+        laserCollisionsReq = requestAnimationFrame(laserCollisions);
+    }
+
+    let laserCollisionsReq = requestAnimationFrame(laserCollisions);
 
     // Stop laser collision detection after ${shooter.laserSpeed} ms
     setTimeout(function () {
 
-        clearInterval(laserInterval);
+        cancelAnimationFrame(laserCollisionsReq);
         shooter.noLasers = true; //Allow lasers
 
     }, shooter.laserSpeed);

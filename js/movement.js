@@ -1,21 +1,18 @@
 //Player movement
 
-// I can't use CSS transformations or animations because of inline styling.
-// If I moved all CSS manipulation to a stylesheet, then I'd be able to use them.
-
 function playerMovementCSS(keyCode1, keyCode2, player) {
 
-    player.body.style.left = newPositionX(keyCode1, keyCode2, player) + 'px';
-    player.body.style.top = newPositionY(player) + 'px';
+    player.html.style.left = newPositionX(keyCode1, keyCode2, player) + 'px';
+    player.html.style.top = newPositionY(player) + 'px';
 }
 
 
 // Moves player left/right
 function newPositionX(keyCode1, keyCode2, player) {
 
-    !player.body.style.left ? player.body.style.left = player.startingLeftCSS + 'px' : null;
+    !player.html.style.left ? player.html.style.left = player.startingLeftCSS + 'px' : null;
 
-    const newPositionX = parseFloat(player.body.style.left) -
+    const newPositionX = parseFloat(player.html.style.left) -
         (keypress[keyCode1] ? playerDirection(keyCode1, keyCode2, player) : 0) +
         (keypress[keyCode2] ? playerDirection(keyCode1, keyCode2, player) : 0);
 
@@ -32,9 +29,9 @@ function newPositionX(keyCode1, keyCode2, player) {
 // Just does gravity
 function newPositionY(player) {
 
-    !player.body.style.top ? player.body.style.top = player.startingTopCSS + 'px' : null;
+    !player.html.style.top ? player.html.style.top = player.startingTopCSS + 'px' : null;
 
-    const newPositionY = parseFloat(player.body.style.top) + (player.airborne ? 1 : 0);
+    let newPositionY = parseFloat(player.html.style.top) + (player.airborne ? player.fallSpeed : 0);
 
     if (newPositionY >= player.getPlayableHeight()) {
 
@@ -73,7 +70,7 @@ function playerDirectionCSS(direction, player) {
     player.direction = direction;
     player.gun.style.left = gunCSS;
     player.visor.style.left = visorCSSLeft;
-    player.body.style.borderRadius = playerCSS;
+    player.html.style.borderRadius = playerCSS;
     player.visor.style.borderRadius = visorCSSBorderRadius;
 }
 
@@ -81,50 +78,43 @@ function playerDirectionCSS(direction, player) {
 function crouchDown(player) {
     player.firstPress = player.firstPress === undefined;
     player.firstPress ? player.speed = player.speed * 2 / 3 : null;
-    player.body.style.height = '30px';
-    player.firstPress ? player.body.style.top = player.body.offsetTop + 30 + 'px' : null;
+    player.html.style.height = '30px';
+    player.firstPress ? player.html.style.top = player.html.offsetTop + 30 + 'px' : null;
 }
 
 function crouchUp(player) {
     player.firstPress = undefined;
     player.speed = player.speed * 3 / 2;
-    player.body.style.height = '60px';
-    player.body.style.top = player.body.offsetTop - 30 + 'px';
+    player.html.style.height = '60px';
+    player.html.style.top = player.html.offsetTop - 30 + 'px';
 }
 
 
 //Jumping function
 function characterJump(player) {
 
-    !player.body.style.top ? player.body.style.top = player.startingTopCSS + 'px' : null;
+    !player.html.style.top ? player.html.style.top = player.startingTopCSS + 'px' : null;
 
     player.airborne = true;
 
-    player.$body.animate({
-        'top': `-=${player.jumpHeight}px`
-    });
+    let originalTop = player.html.style.top,
+        top = 0;
 
+    function frame() {
 
+        top < player.jumpHeight - 10 ? top += 5 : top += 4;
 
+        let newTop = parseFloat(originalTop) - top;
 
-    // let originalTop = player.body.style.top,
-    //     top = 0;
-    //
-    // function frame() {
-    //
-    //     // top < 55 ? top += 2 : top += 1;
-    //
-    //     top++;
-    //
-    //     let newTop = parseFloat(originalTop) - top;
-    //
-    //     player.body.style.top = newTop + 'px'; // show frame
-    //
-    //     if (top >= player.jumpHeight) { // check finish condition
-    //
-    //         clearInterval(id);
-    //     }
-    // }
-    //
-    // let id = setInterval(frame, 0) // draw asap.
+        player.html.style.top = newTop + 'px'; // show frame
+
+        if (top >= player.jumpHeight) { // check finish condition
+            return;
+        }
+
+        requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
+
 }

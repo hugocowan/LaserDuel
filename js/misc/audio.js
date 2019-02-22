@@ -1,4 +1,3 @@
-
 // Play the pew pew and pain sound effects
 
 function playSoundEffect(name, ext) {
