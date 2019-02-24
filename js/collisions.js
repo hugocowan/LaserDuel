@@ -41,18 +41,17 @@ function pewPewCollisions(laser, opponent) {
     const laserRect = laser.getRect(),
         opponentRect = opponent.getRect();
 
-    if ((laserRect.right > opponentRect.left && laserRect.right < opponentRect.right &&
+    if (
+        (laserRect.right > opponentRect.left && laserRect.right < opponentRect.right &&
         laserRect.top > opponentRect.top && laserRect.bottom < opponentRect.bottom) ||
-        (laserRect.left > opponentRect.right && laserRect.left < opponentRect.left &&
-            laserRect.top > opponentRect.top && laserRect.bottom < opponentRect.bottom)) {
+        (laserRect.left < opponentRect.right && laserRect.left > opponentRect.left &&
+        laserRect.top > opponentRect.top && laserRect.bottom < opponentRect.bottom)) {
 
         playSoundEffect('hurt', 'wav');
 
         laser.html.remove();
 
-        //Logic for scoreboard/win condition. In a setTimeout to allow pain sound to run before the alert does.
-        setTimeout(function () {
-            score(opponent);
-        }, 20);
+        //Logic for scoreboard/win condition.
+        reset(opponent);
     }
 }

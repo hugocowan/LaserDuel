@@ -2,7 +2,7 @@
 
 class Player {
 
-    constructor(name, startingLeftCSS = null, startingTopCSS = null){
+    constructor(arena, name, startingLeftCSS = null, startingTopCSS = null){
 
         const player = document.createElement('aside'),
             visor = document.createElement('div'),
@@ -13,7 +13,7 @@ class Player {
         visor.setAttribute('class', name === 'Player 1' ? 'visor one' : 'visor two');
         gun.setAttribute('class', name === 'Player 1' ? 'gun one' : 'gun two');
 
-        arena.html.appendChild(player);
+        arena.appendChild(player);
         player.appendChild(visor);
         player.appendChild(gun);
 
@@ -36,7 +36,7 @@ class Player {
         this.healthHTML = document.getElementsByClassName(this.name === 'Player 1' ? 'player1 health' : 'player2 health')[0];
 
         this.startingLeftCSS = startingLeftCSS || this.name === 'Player 1' ? 15 : 597;
-        this.startingTopCSS = startingTopCSS || this.getPlayableHeight();
+        this.startingTopCSS = startingTopCSS;
     }
 
 
@@ -55,10 +55,5 @@ class Player {
         setTimeout(function() {
             toast.remove();
         }, 1200);
-    };
-
-    getPlayableHeight() {
-        //on standard refresh, player and arena html elements haven't yet loaded.
-        return arena.html.clientHeight - this.html.clientHeight || 480;
     };
 }

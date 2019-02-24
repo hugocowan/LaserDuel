@@ -42,7 +42,6 @@ ul, li, h1 {
     color: grey;
     font-size: 12px;
     font-weight: bold;
-    //text-align: center;
     border: solid lightGrey 2px;
     border-radius: 8px;
 
@@ -70,6 +69,7 @@ ul, li, h1 {
     &.player2 {
         right: -40%;
     }
+
     @media(max-width: 1180px) {
         opacity: 0.5;
 
@@ -103,6 +103,7 @@ ul, li, h1 {
         right: -34%;
         background: #ff4554;
     }
+
     @media(max-width: 1180px) {
         opacity: 0.2;
         top: 0;
@@ -215,4 +216,30 @@ main {
     height: 4px;
     position: absolute;
     z-index: -1;
+}
+
+.modal {
+    width: 340px;
+    left: 50%;
+    top: 27%;
+    transform: translate(-50%, -50%);
+    display: none;
+    position: fixed;
+    background: white;
+    border: solid black 4px;
+    border-radius: 6px;
+    text-align: center;
+
+    button {
+        margin: 1rem;
+        text-align: center;
+        padding: 1rem;
+        background-color: grey;
+        border: 0;
+        border-radius: 6px;
+        text-decoration: none;
+        outline: none;
+        font-size: 14px;
+        font-weight: bold;
+    }
 }

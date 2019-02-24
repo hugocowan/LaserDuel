@@ -1,25 +1,12 @@
 //Global variables.
-let arena, platforms, keypress, ball, playerOne, playerTwo;
+let arena, platforms, modal, keydown, keyup, keypress = {}, ball, playerOne, playerTwo;
 
 window.addEventListener('DOMContentLoaded', function setup() {
 
-    arena = new Arena('arena-1');
-    ball = new Ball();
-    playerOne = new Player('Player 1');
-    playerTwo = new Player('Player 2');
-    keypress = {};
-    platforms = [
-        new Platform('370px', '10%'),
-        new Platform('370px', '42%'),
-        new Platform('370px', '74.4%'),
-        new Platform('260px', '0'),
-        new Platform('260px', '84.4%'),
-        new Platform('150px', '5%', '209px'),
-        new Platform('150px', '62.4%', '209px')
-    ];
+    arena = new Arena(1);
 
     //Keydown events
-    window.addEventListener('keydown', function (event) {
+    keydown = function (event) {
         event.preventDefault();
 
         const key = event.key.length > 1 ? event.key : event.key.toLowerCase();
@@ -27,70 +14,48 @@ window.addEventListener('DOMContentLoaded', function setup() {
 
         switch(key) {
 
-            //player shooting. noLasers gives the delay between shots.
+            //player shooting.
             case 'Tab':
             case 'e':
-                if (playerOne.noLasers) {
-
-                    playSoundEffect('laser', 'mp3');
-                    pewPew(playerOne, playerTwo);
-
-                }
-                break;
-
             case 'Backspace':
             case 'Shift':
 
-                if (playerTwo.noLasers) {
-
-                    playSoundEffect('laser', 'mp3');
-                    pewPew(playerTwo, playerOne);
-
-                }
+                pewPew(key);
                 break;
-
 
             //player crouching.
             case 's':
-
-                crouchDown(playerOne);
-                break;
-
             case 'ArrowDown':
 
-                crouchDown(playerTwo);
+                crouch(false, key);
                 break;
-
 
             //player jumping.
             case 'ArrowUp':
-                !playerTwo.airborne ? characterJump(playerTwo) : null;
-                break;
-
             case 'w':
-                !playerOne.airborne ? characterJump(playerOne) : null;
+
+                characterJump(key);
                 break;
         }
-    });
+    };
 
     //Keyup events
-    window.addEventListener('keyup', function (event) {
+    keyup = function (event) {
 
         const key = event.key.length > 1 ? event.key : event.key.toLowerCase();
         keypress[key] = false;
 
-        if (key === 's') {
-            crouchUp(playerOne);
+        if (key === 's' || key === 'ArrowDown') {
+            crouch(true, key);
         }
+    };
 
-        if (key === 'ArrowDown') {
-            crouchUp(playerTwo);
-        }
-    });
+    window.addEventListener('keydown', keydown);
+    window.addEventListener('keyup', keyup);
 
 
     //Update platform positions on window resize
-    window.addEventListener('resize', function(eee) {
+    window.addEventListener('resize', function() {
 
         platforms.forEach(function (platform) {
             platform.setRect();
@@ -101,7 +66,7 @@ window.addEventListener('DOMContentLoaded', function setup() {
     });
 
 
-    //Movement Interval.
+    //Movement and collisions.
     function movementAndCollision() {
 
         playerCollisions(playerOne, playerTwo);
@@ -111,9 +76,7 @@ window.addEventListener('DOMContentLoaded', function setup() {
         playerMovementCSS('ArrowLeft', 'ArrowRight', playerTwo);
 
         requestAnimationFrame(movementAndCollision);
-
     }
 
     requestAnimationFrame(movementAndCollision);
-
 });

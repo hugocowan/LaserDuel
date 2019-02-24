@@ -1,23 +1,23 @@
 
 class Ball {
 
-    constructor() {
+    constructor(arena) {
 
-        const ball = document.createElement('div');
-        ball.setAttribute('class', 'ball');
+        const ball = document.createElement('div'),
+            oldBall = document.getElementsByClassName('ball')[0],
+            randomNumber = Math.floor(Math.random() * 10),
+            arenaName = arena.className;
 
-        const randomNumber = Math.floor(Math.random() * 10),
-            arenaName = arena.html.className;
-
-        if (arenaName === 'arena-1' && randomNumber <= 3) {
-            ball.style.left = '28px';
-            ball.style.top = '200px';
-        } else if (arenaName === 'arena-1' && randomNumber >= 7) {
-            ball.style.left = '570px';
-            ball.style.top = '200px';
+        if (oldBall) {
+            document.getElementsByTagName('main')[0].removeChild(oldBall);
         }
 
-        arena.html.appendChild(ball);
+        ball.setAttribute('class', 'ball');
+
+        randomNumber <= 3 ? ball.style.left =  '28px' : randomNumber >= 7 ? ball.style.left = '570px' : null;
+        randomNumber <= 3 || randomNumber >= 7 ? ball.style.top = '200px' : null;
+
+        arena.appendChild(ball);
 
         this.html = ball;
         this.rect = null;

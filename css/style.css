@@ -197,4 +197,29 @@ main {
   z-index: -1;
 }
 
+.modal {
+  width: 340px;
+  left: 50%;
+  top: 27%;
+  transform: translate(-50%, -50%);
+  display: none;
+  position: fixed;
+  background: white;
+  border: solid black 4px;
+  border-radius: 6px;
+  text-align: center;
+}
+.modal button {
+  margin: 1rem;
+  text-align: center;
+  padding: 1rem;
+  background-color: grey;
+  border: 0;
+  border-radius: 6px;
+  text-decoration: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=style.css.map */
